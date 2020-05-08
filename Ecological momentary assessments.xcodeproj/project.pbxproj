@@ -7,19 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B40A635924635C100047E819 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635824635C100047E819 /* Data.swift */; };
+		B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */; };
+		B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34152464585A008CA55A /* LvlQuestionViewController.swift */; };
+		B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341724645D19008CA55A /* TestStartViewController.swift */; };
+		B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34192464749B008CA55A /* ChoiceDataBrain.swift */; };
+		B42C341C24649B13008CA55A /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */; };
 		B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBB246054170086AD1D /* AppDelegate.swift */; };
 		B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBD246054170086AD1D /* SceneDelegate.swift */; };
-		B4C70CC0246054170086AD1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBF246054170086AD1D /* ViewController.swift */; };
+		B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBF246054170086AD1D /* MainViewController.swift */; };
 		B4C70CC3246054170086AD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C70CC1246054170086AD1D /* Main.storyboard */; };
 		B4C70CC5246054200086AD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4C70CC4246054200086AD1D /* Assets.xcassets */; };
 		B4C70CC8246054200086AD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C70CC6246054200086AD1D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B40A635824635C100047E819 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDataBrain.swift; sourceTree = "<group>"; };
+		B42C34152464585A008CA55A /* LvlQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LvlQuestionViewController.swift; sourceTree = "<group>"; };
+		B42C341724645D19008CA55A /* TestStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStartViewController.swift; sourceTree = "<group>"; };
+		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
+		B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
 		B4C70CB8246054170086AD1D /* Ecological momentary assessments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ecological momentary assessments.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C70CBB246054170086AD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4C70CBD246054170086AD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B4C70CBF246054170086AD1D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B4C70CBF246054170086AD1D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B4C70CC2246054170086AD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4C70CC4246054200086AD1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4C70CC7246054200086AD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,13 +70,43 @@
 			children = (
 				B4C70CBB246054170086AD1D /* AppDelegate.swift */,
 				B4C70CBD246054170086AD1D /* SceneDelegate.swift */,
-				B4C70CBF246054170086AD1D /* ViewController.swift */,
-				B4C70CC1246054170086AD1D /* Main.storyboard */,
-				B4C70CC4246054200086AD1D /* Assets.xcassets */,
-				B4C70CC6246054200086AD1D /* LaunchScreen.storyboard */,
+				B4C70CCF246054830086AD1D /* Model */,
+				B4C70CD12460549E0086AD1D /* View */,
+				B4C70CD2246054A40086AD1D /* Controller */,
 				B4C70CC9246054200086AD1D /* Info.plist */,
+				B4C70CC4246054200086AD1D /* Assets.xcassets */,
 			);
 			path = "Ecological momentary assessments";
+			sourceTree = "<group>";
+		};
+		B4C70CCF246054830086AD1D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B40A635824635C100047E819 /* Data.swift */,
+				B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */,
+				B42C34192464749B008CA55A /* ChoiceDataBrain.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B4C70CD12460549E0086AD1D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B4C70CC1246054170086AD1D /* Main.storyboard */,
+				B4C70CC6246054200086AD1D /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B4C70CD2246054A40086AD1D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B4C70CBF246054170086AD1D /* MainViewController.swift */,
+				B42C341724645D19008CA55A /* TestStartViewController.swift */,
+				B42C34152464585A008CA55A /* LvlQuestionViewController.swift */,
+				B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +180,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4C70CC0246054170086AD1D /* ViewController.swift in Sources */,
+				B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */,
+				B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */,
+				B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */,
+				B42C341C24649B13008CA55A /* ChoiceQuestionViewController.swift in Sources */,
+				B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */,
+				B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */,
 				B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */,
 				B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */,
+				B40A635924635C100047E819 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +335,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 557WYQYG83;
 				INFOPLIST_FILE = "Ecological momentary assessments/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +354,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 557WYQYG83;
 				INFOPLIST_FILE = "Ecological momentary assessments/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
