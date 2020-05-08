@@ -90,6 +90,7 @@ class ChoiceQuestionViewController: UIViewController {
             option4.setTitle(options[4], for: .normal)
             option5.setTitle(options[5], for: .normal)
             //clear color:this is a test
+            //test
             option1.backgroundColor = UIColor.clear
             option1.backgroundColor = UIColor.clear
             option1.backgroundColor = UIColor.clear
