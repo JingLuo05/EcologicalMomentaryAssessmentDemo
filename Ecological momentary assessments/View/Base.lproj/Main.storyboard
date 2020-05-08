@@ -220,16 +220,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="iCm-yL-Tfq">
-                                <rect key="frame" x="20" y="94" width="374" height="512"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="iCm-yL-Tfq">
+                                <rect key="frame" x="20" y="94" width="374" height="682"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgc-ZH-79D">
-                                        <rect key="frame" x="0.0" y="0.0" width="110" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="335.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esd-2S-lGN">
-                                                <rect key="frame" x="20" y="20" width="109.5" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esd-2S-lGN">
+                                                <rect key="frame" x="20" y="20" width="350" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -237,92 +237,80 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rWZ-dG-hE5">
-                                        <rect key="frame" x="0.0" y="66" width="322" height="446"/>
+                                        <rect key="frame" x="0.0" y="346.5" width="322" height="335.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEi-Wh-JPn">
-                                                <rect key="frame" x="0.0" y="0.0" width="322" height="67.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="322" height="49.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Option1" backgroundImage="Rectangle">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="9Nr-xp-ywz"/>
+                                                    <action selector="choice0Selected:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="ZHA-sS-Fpe"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFj-oH-78s">
-                                                <rect key="frame" x="0.0" y="75.5" width="322" height="67.5"/>
+                                                <rect key="frame" x="0.0" y="57.5" width="322" height="49"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Option2" backgroundImage="Rectangle">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="eCT-ye-ITr"/>
+                                                    <action selector="choice1Selected:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="o6p-ER-7LG"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUr-Jo-gDu">
-                                                <rect key="frame" x="0.0" y="151" width="322" height="68"/>
+                                                <rect key="frame" x="0.0" y="114.5" width="322" height="49.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Option3" backgroundImage="Rectangle">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="ZwM-RE-Qiv"/>
+                                                    <action selector="choice2Selected:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="yUZ-cd-1bf"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RxG-BH-e31">
-                                                <rect key="frame" x="0.0" y="227" width="322" height="67.5"/>
+                                                <rect key="frame" x="0.0" y="172" width="322" height="49"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Option4" backgroundImage="Rectangle">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="ftq-MP-hAK"/>
+                                                    <action selector="choice3Selected:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="VZE-XR-IAu"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZa-F6-XVP">
-                                                <rect key="frame" x="0.0" y="302.5" width="322" height="68"/>
+                                                <rect key="frame" x="0.0" y="229" width="322" height="49.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Option5" backgroundImage="Rectangle">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="NI1-aH-gKQ"/>
+                                                    <action selector="choice4Selected:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="7oQ-aI-HiY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gr1-uL-eN3">
-                                                <rect key="frame" x="0.0" y="378.5" width="322" height="67.5"/>
+                                                <rect key="frame" x="0.0" y="286.5" width="322" height="49"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Option6" backgroundImage="Rectangle">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="PSB-2M-w2j"/>
+                                                    <action selector="choice5Selected:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="FZh-3Z-BlT"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Uc-3s-qK8">
-                                <rect key="frame" x="46" y="710" width="322" height="68"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Next" backgroundImage="Rectangle">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextPressed:" destination="pCR-eZ-PxN" eventType="touchUpInside" id="LiG-qi-ZOz"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="4Uc-3s-qK8" firstAttribute="centerX" secondItem="E2e-Ig-spF" secondAttribute="centerX" id="Cx5-Zm-xkU"/>
                             <constraint firstItem="iCm-yL-Tfq" firstAttribute="leading" secondItem="OIp-3F-NMa" secondAttribute="leading" constant="20" id="GoS-uW-uba"/>
-                            <constraint firstItem="OIp-3F-NMa" firstAttribute="bottom" secondItem="4Uc-3s-qK8" secondAttribute="bottom" constant="80" id="ODq-5i-XpJ"/>
                             <constraint firstItem="iCm-yL-Tfq" firstAttribute="top" secondItem="OIp-3F-NMa" secondAttribute="top" constant="50" id="VDc-FH-R0Q"/>
                             <constraint firstItem="OIp-3F-NMa" firstAttribute="trailing" secondItem="iCm-yL-Tfq" secondAttribute="trailing" constant="20" id="WIX-ef-bXr"/>
                             <constraint firstItem="iCm-yL-Tfq" firstAttribute="centerX" secondItem="E2e-Ig-spF" secondAttribute="centerX" id="YQq-JH-lXC"/>
-                            <constraint firstAttribute="bottom" secondItem="iCm-yL-Tfq" secondAttribute="bottom" constant="290" id="fgF-TS-8DS"/>
+                            <constraint firstAttribute="bottom" secondItem="iCm-yL-Tfq" secondAttribute="bottom" constant="120" id="fgF-TS-8DS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OIp-3F-NMa"/>
                     </view>

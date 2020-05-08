@@ -36,15 +36,67 @@ class ChoiceQuestionViewController: UIViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func choice0Selected(_ sender: UIButton) {
+        dataBrain.choiceAnswer.append(dataBrain.choiceQuestions[dataBrain.currentChoiceQuestion].choices[0])
+        sender.backgroundColor = UIColor.green
+        
+        print("Answer0 added!!")
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateChoiceUI), userInfo: nil, repeats: false)
     }
-    */
+    @IBAction func choice1Selected(_ sender: UIButton) {
+        dataBrain.choiceAnswer.append(dataBrain.choiceQuestions[dataBrain.currentChoiceQuestion].choices[1])
+        
+        print("Answer1 added!!")
+        Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(updateChoiceUI), userInfo: nil, repeats: false)
+    }
+    
+    @IBAction func choice2Selected(_ sender: UIButton) {
+        dataBrain.choiceAnswer.append(dataBrain.choiceQuestions[dataBrain.currentChoiceQuestion].choices[2])
+        
+        print("Answer2 added!!")
+        Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(updateChoiceUI), userInfo: nil, repeats: false)
+    }
+    
+    @IBAction func choice3Selected(_ sender: UIButton) {
+        dataBrain.choiceAnswer.append(dataBrain.choiceQuestions[dataBrain.currentChoiceQuestion].choices[3])
+        
+        print("Answer3 added!!")
+        Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(updateChoiceUI), userInfo: nil, repeats: false)
+    }
+    
+    @IBAction func choice4Selected(_ sender: UIButton) {
+        dataBrain.choiceAnswer.append(dataBrain.choiceQuestions[dataBrain.currentChoiceQuestion].choices[4])
+        
+        print("Answer4 added!!")
+        Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(updateChoiceUI), userInfo: nil, repeats: false)
+    }
+    
+    @IBAction func choice5Selected(_ sender: UIButton) {
+        dataBrain.choiceAnswer.append(dataBrain.choiceQuestions[dataBrain.currentChoiceQuestion].choices[5])
+        
+        print("Answer5 added!!")
+        Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(updateChoiceUI), userInfo: nil, repeats: false)
+    }
+    
+    @objc func updateChoiceUI() {
+        if dataBrain.getNextChoiceQuestion() {
+            questionLabel.text = dataBrain.getChoiceQuestionText()
+            options = dataBrain.getQuestionOptions()
+            print(options)
+            option0.setTitle(options[0], for: .normal)
+            option1.setTitle(options[1], for: .normal)
+            option2.setTitle(options[2], for: .normal)
+            option3.setTitle(options[3], for: .normal)
+            option4.setTitle(options[4], for: .normal)
+            option5.setTitle(options[5], for: .normal)
+            //clear color
+            //option1.
+        } else {
+            print(dataBrain.choiceAnswer)
+            print("Go to Thank you page")
+        }
+    }
+    
+
 
 }

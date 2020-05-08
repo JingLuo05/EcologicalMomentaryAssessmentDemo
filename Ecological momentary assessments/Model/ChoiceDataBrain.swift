@@ -18,11 +18,12 @@ struct ChoiceDataBrain {
     var choiceAnswer = [String]()
     
     func getChoiceQuestionText() -> String {
-        print(choiceQuestions[currentChoiceQuestion].choiceQuestion)
+        //print(choiceQuestions[currentChoiceQuestion].choiceQuestion)
         return choiceQuestions[currentChoiceQuestion].choiceQuestion
     }
     
     func getQuestionOptions() -> [String] {
+        //print(choiceQuestions[currentChoiceQuestion].choices)
         return choiceQuestions[currentChoiceQuestion].choices
     }
     
