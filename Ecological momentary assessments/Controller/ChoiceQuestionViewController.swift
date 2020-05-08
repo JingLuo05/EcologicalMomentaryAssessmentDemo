@@ -89,8 +89,13 @@ class ChoiceQuestionViewController: UIViewController {
             option3.setTitle(options[3], for: .normal)
             option4.setTitle(options[4], for: .normal)
             option5.setTitle(options[5], for: .normal)
-            //clear color
-            //option1.
+            //clear color:this is a test
+            option1.backgroundColor = UIColor.clear
+            option1.backgroundColor = UIColor.clear
+            option1.backgroundColor = UIColor.clear
+            option1.backgroundColor = UIColor.clear
+            option1.backgroundColor = UIColor.clear
+            option1.backgroundColor = UIColor.clear
         } else {
             print(dataBrain.choiceAnswer)
             print("Go to Thank you page")
