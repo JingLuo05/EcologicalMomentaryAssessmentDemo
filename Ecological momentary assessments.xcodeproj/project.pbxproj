@@ -28,7 +28,7 @@
 		B42C341724645D19008CA55A /* TestStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStartViewController.swift; sourceTree = "<group>"; };
 		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
 		B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
-		B4C70CB8246054170086AD1D /* Ecological momentary assessments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ecological momentary assessments.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4C70CB8246054170086AD1D /* EMA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C70CBB246054170086AD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4C70CBD246054170086AD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B4C70CBF246054170086AD1D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		B4C70CB9246054170086AD1D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B4C70CB8246054170086AD1D /* Ecological momentary assessments.app */,
+				B4C70CB8246054170086AD1D /* EMA.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,7 +126,7 @@
 			);
 			name = "Ecological momentary assessments";
 			productName = "Ecological momentary assessments";
-			productReference = B4C70CB8246054170086AD1D /* Ecological momentary assessments.app */;
+			productReference = B4C70CB8246054170086AD1D /* EMA.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -341,7 +341,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JingLuo.Ecological-momentary-assessments";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EMA;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -360,7 +360,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JingLuo.Ecological-momentary-assessments";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EMA;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

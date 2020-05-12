@@ -19,7 +19,7 @@ struct LevelDataBrain {
     var levelAnswer = [Float]()
     
     func getLevelQuestionText() -> String {
-        print(levelQuestions[currentLevelQuestion].lvlQuestion)
+        //print(levelQuestions[currentLevelQuestion].lvlQuestion)
         return levelQuestions[currentLevelQuestion].lvlQuestion
     }
     
@@ -34,6 +34,9 @@ struct LevelDataBrain {
     }
     
     func getLevelAnswer() -> [Float] {
+//        for i in 0...(levelAnswer.count-1) {
+//            
+//        }
         return levelAnswer
     }
     

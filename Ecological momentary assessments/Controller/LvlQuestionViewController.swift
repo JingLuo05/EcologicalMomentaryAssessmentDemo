@@ -17,10 +17,11 @@ class LvlQuestionViewController: UIViewController {
     
     
     @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var answerSlider: UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = #colorLiteral(red: 0.2243741453, green: 0.2615192533, blue: 0.4102925658, alpha: 1)
         questionLabel.text = questionText
     }
     
@@ -38,7 +39,9 @@ class LvlQuestionViewController: UIViewController {
     @objc func updateLevelUI() {
         if dataBrain.getNextLevelQuestion() {
             questionLabel.text = dataBrain.getLevelQuestionText()
+            answerSlider.value = 0.0
         } else {
+            print(dataBrain.getLevelAnswer())
             shouldPerformSegue = true
             performSegue(withIdentifier: "goToChoiceQuestion", sender: self)
         }
