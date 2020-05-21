@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8tz-UR-Eva">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8tz-UR-Eva">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -356,10 +356,10 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NEa-1n-4CE">
-                                <rect key="frame" x="92" y="343" width="230" height="210"/>
+                                <rect key="frame" x="47" y="288" width="320" height="320"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OC6-qh-raU">
-                                        <rect key="frame" x="0.0" y="0.0" width="230" height="100"/>
+                                        <rect key="frame" x="45" y="0.0" width="230" height="100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcL-Sx-5gq">
                                                 <rect key="frame" x="20.5" y="26" width="189.5" height="48"/>
@@ -374,7 +374,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fda-b9-TcI">
-                                        <rect key="frame" x="65" y="110" width="100" height="100"/>
+                                        <rect key="frame" x="110" y="110" width="100" height="100"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smiley" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9n3-Wp-Ms0">
                                                 <rect key="frame" x="20" y="20" width="50" height="49"/>
@@ -392,8 +392,18 @@
                                             <constraint firstAttribute="width" constant="100" id="nqE-g7-JWw"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please follow the prompt to provide heart rate data " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDZ-ca-e0Y">
+                                        <rect key="frame" x="0.0" y="220" width="320" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="7cd-qu-Y7I"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="nDZ-ca-e0Y" firstAttribute="centerX" secondItem="NEa-1n-4CE" secondAttribute="centerX" id="at1-jQ-hUg"/>
                                     <constraint firstItem="fda-b9-TcI" firstAttribute="top" secondItem="OC6-qh-raU" secondAttribute="bottom" constant="10" id="i2a-sk-hro"/>
                                 </constraints>
                             </stackView>
@@ -416,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="img-vT-vVP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3184" y="860"/>
+            <point key="canvasLocation" x="3182.608695652174" y="859.82142857142856"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
