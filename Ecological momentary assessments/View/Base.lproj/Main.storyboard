@@ -512,16 +512,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please now open HeartRate app on iWatch and keep arm still. " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ps-Lv-8fR">
-                                <rect key="frame" x="30" y="245" width="354" height="93.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please now open HeartRate app on iWatch and keep arm still. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ps-Lv-8fR">
+                                <rect key="frame" x="30" y="194" width="354" height="147.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-U0-NqL">
-                                <rect key="frame" x="160" y="420" width="94" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.64954119919999997" green="0.12036988880000001" blue="0.1218554154" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-U0-NqL">
+                                <rect key="frame" x="147" y="423" width="120" height="50"/>
+                                <color key="backgroundColor" red="0.023529411760000001" green="0.38431372549999998" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="D75-uH-wUf"/>
+                                    <constraint firstAttribute="width" constant="120" id="Ytr-0G-pm4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Start">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -533,18 +537,45 @@
                                 <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current heart rate:" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFI-hf-K5r">
+                                <rect key="frame" x="47" y="390" width="320" height="31.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="VTd-Wj-hHt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="heart rate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGZ-5h-PNU">
+                                <rect key="frame" x="47" y="444" width="320" height="31.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="6H1-Xt-ds6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.22437414529999999" green="0.26151925329999998" blue="0.41029256580000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uGZ-5h-PNU" firstAttribute="leading" secondItem="xFI-hf-K5r" secondAttribute="leading" id="0pz-0h-7vr"/>
+                            <constraint firstItem="g3P-U0-NqL" firstAttribute="centerY" secondItem="y4Q-8w-GlD" secondAttribute="centerY" id="1kP-Bq-b9E"/>
                             <constraint firstItem="8ps-Lv-8fR" firstAttribute="leading" secondItem="ERh-OI-T1k" secondAttribute="leading" constant="30" id="2Cy-ab-Q05"/>
                             <constraint firstItem="ERh-OI-T1k" firstAttribute="trailing" secondItem="8ps-Lv-8fR" secondAttribute="trailing" constant="30" id="9vr-gR-1rP"/>
+                            <constraint firstItem="xFI-hf-K5r" firstAttribute="centerX" secondItem="g3P-U0-NqL" secondAttribute="centerX" id="M2I-Rj-2jI"/>
                             <constraint firstItem="y4Q-8w-GlD" firstAttribute="centerX" secondItem="RL3-fY-PJA" secondAttribute="centerX" id="QMO-yH-2my"/>
+                            <constraint firstItem="g3P-U0-NqL" firstAttribute="top" secondItem="8ps-Lv-8fR" secondAttribute="bottom" constant="81.5" id="QjU-er-i8v"/>
+                            <constraint firstItem="y4Q-8w-GlD" firstAttribute="top" secondItem="xFI-hf-K5r" secondAttribute="bottom" constant="8" id="c4v-Zw-0TG"/>
                             <constraint firstItem="y4Q-8w-GlD" firstAttribute="centerY" secondItem="RL3-fY-PJA" secondAttribute="centerY" id="fKt-ar-8Ia"/>
-                            <constraint firstItem="8ps-Lv-8fR" firstAttribute="top" secondItem="ERh-OI-T1k" secondAttribute="top" constant="201" id="yLY-B4-GIN"/>
+                            <constraint firstItem="g3P-U0-NqL" firstAttribute="centerX" secondItem="RL3-fY-PJA" secondAttribute="centerX" id="rLA-8G-RK4"/>
+                            <constraint firstItem="uGZ-5h-PNU" firstAttribute="top" secondItem="xFI-hf-K5r" secondAttribute="bottom" constant="22.5" id="w8S-Cx-9zY"/>
+                            <constraint firstItem="8ps-Lv-8fR" firstAttribute="top" secondItem="ERh-OI-T1k" secondAttribute="top" constant="150" id="yLY-B4-GIN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ERh-OI-T1k"/>
                     </view>
                     <connections>
+                        <outlet property="HRLabel" destination="uGZ-5h-PNU" id="NPS-sx-R21"/>
+                        <outlet property="HRViewLabel" destination="xFI-hf-K5r" id="bQR-hc-7By"/>
                         <outlet property="activityMarker" destination="y4Q-8w-GlD" id="IFI-4z-e03"/>
                         <outlet property="startButton" destination="g3P-U0-NqL" id="mVj-C0-3gI"/>
                     </connections>

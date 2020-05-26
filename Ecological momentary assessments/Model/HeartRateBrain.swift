@@ -11,6 +11,8 @@ import HealthKit
 
 class HealthStore: HKHealthStore {
     
+    var currentHR = 1
+    
     func authorizeHealthKit() {
         let read = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!])
         let share = Set([HKObjectType.quantityType(forIdentifier: .heartRate)!])
@@ -44,6 +46,8 @@ class HealthStore: HKHealthStore {
             let unit = HKUnit(from: "count/min")
             let latestHR = data.quantity.doubleValue(for: unit)
             print("Latest heart: \(latestHR) BPM")
+            self.currentHR = Int(latestHR)
+            
             
             //print the HR time information
             let dataFormator = DateFormatter()
@@ -54,5 +58,9 @@ class HealthStore: HKHealthStore {
              
         }
         self.execute(query)
+    }
+    
+    func getCurrentHR() -> Int {
+        return self.currentHR
     }
 }
