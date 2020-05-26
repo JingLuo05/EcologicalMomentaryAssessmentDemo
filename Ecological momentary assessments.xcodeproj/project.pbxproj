@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B40A635924635C100047E819 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635824635C100047E819 /* Data.swift */; };
 		B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */; };
+		B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422EBD424773439009E54D6 /* HRDetectViewController.swift */; };
+		B422EBD92477787A009E54D6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B422EBD82477787A009E54D6 /* HealthKit.framework */; };
+		B42B678C24781F09009E1CA6 /* HeartRateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */; };
 		B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34152464585A008CA55A /* LvlQuestionViewController.swift */; };
 		B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341724645D19008CA55A /* TestStartViewController.swift */; };
 		B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34192464749B008CA55A /* ChoiceDataBrain.swift */; };
@@ -24,6 +27,10 @@
 /* Begin PBXFileReference section */
 		B40A635824635C100047E819 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDataBrain.swift; sourceTree = "<group>"; };
+		B422EBD424773439009E54D6 /* HRDetectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRDetectViewController.swift; sourceTree = "<group>"; };
+		B422EBD62477787A009E54D6 /* EMARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EMARelease.entitlements; sourceTree = "<group>"; };
+		B422EBD82477787A009E54D6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateBrain.swift; sourceTree = "<group>"; };
 		B42C34152464585A008CA55A /* LvlQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LvlQuestionViewController.swift; sourceTree = "<group>"; };
 		B42C341724645D19008CA55A /* TestStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStartViewController.swift; sourceTree = "<group>"; };
 		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
@@ -43,17 +50,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B422EBD92477787A009E54D6 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B422EBD72477787A009E54D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B422EBD82477787A009E54D6 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B4C70CAF246054170086AD1D = {
 			isa = PBXGroup;
 			children = (
 				B4C70CBA246054170086AD1D /* Ecological momentary assessments */,
 				B4C70CB9246054170086AD1D /* Products */,
+				B422EBD72477787A009E54D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +85,7 @@
 		B4C70CBA246054170086AD1D /* Ecological momentary assessments */ = {
 			isa = PBXGroup;
 			children = (
+				B422EBD62477787A009E54D6 /* EMARelease.entitlements */,
 				B4C70CBB246054170086AD1D /* AppDelegate.swift */,
 				B4C70CBD246054170086AD1D /* SceneDelegate.swift */,
 				B4C70CCF246054830086AD1D /* Model */,
@@ -85,6 +103,7 @@
 				B40A635824635C100047E819 /* Data.swift */,
 				B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */,
 				B42C34192464749B008CA55A /* ChoiceDataBrain.swift */,
+				B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -105,6 +124,7 @@
 				B42C341724645D19008CA55A /* TestStartViewController.swift */,
 				B42C34152464585A008CA55A /* LvlQuestionViewController.swift */,
 				B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */,
+				B422EBD424773439009E54D6 /* HRDetectViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,12 +201,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */,
+				B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */,
 				B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */,
 				B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */,
 				B42C341C24649B13008CA55A /* ChoiceQuestionViewController.swift in Sources */,
 				B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */,
 				B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */,
 				B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */,
+				B42B678C24781F09009E1CA6 /* HeartRateBrain.swift in Sources */,
 				B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */,
 				B40A635924635C100047E819 /* Data.swift in Sources */,
 			);
@@ -332,6 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Ecological momentary assessments/EMARelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 557WYQYG83;
 				INFOPLIST_FILE = "Ecological momentary assessments/Info.plist";
@@ -351,6 +374,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Ecological momentary assessments/EMARelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 557WYQYG83;
 				INFOPLIST_FILE = "Ecological momentary assessments/Info.plist";

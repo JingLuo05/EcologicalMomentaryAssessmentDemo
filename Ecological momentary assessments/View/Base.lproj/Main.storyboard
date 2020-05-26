@@ -170,7 +170,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="-3" maxValue="3" minimumValueImage="trash" catalog="system" maximumValueImage="smiley" translatesAutoresizingMaskIntoConstraints="NO" id="nSi-85-ORH">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-3" maxValue="3" minimumValueImage="trash" catalog="system" maximumValueImage="smiley" translatesAutoresizingMaskIntoConstraints="NO" id="nSi-85-ORH">
                                 <rect key="frame" x="18" y="302" width="378" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="fkZ-tk-HEA"/>
@@ -407,17 +407,29 @@
                                     <constraint firstItem="fda-b9-TcI" firstAttribute="top" secondItem="OC6-qh-raU" secondAttribute="bottom" constant="10" id="i2a-sk-hro"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdE-GH-avh">
+                                <rect key="frame" x="46" y="662" width="322" height="68"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Next" backgroundImage="Rectangle">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="wGC-97-lwB" kind="presentation" id="VyW-xb-sB8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.22437414529999999" green="0.26151925329999998" blue="0.41029256580000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RKv-Db-V8E" secondAttribute="bottom" id="88B-1a-Q7C"/>
                             <constraint firstItem="NEa-1n-4CE" firstAttribute="centerY" secondItem="z7u-Q6-bww" secondAttribute="centerY" id="9Xp-YB-La1"/>
                             <constraint firstAttribute="bottom" secondItem="RKv-Db-V8E" secondAttribute="bottom" id="EPf-zH-nZo"/>
+                            <constraint firstItem="KdE-GH-avh" firstAttribute="centerX" secondItem="z7u-Q6-bww" secondAttribute="centerX" id="Nkg-Ze-pfy"/>
                             <constraint firstItem="NEa-1n-4CE" firstAttribute="centerY" secondItem="z7u-Q6-bww" secondAttribute="centerY" id="R1D-UA-TVe"/>
                             <constraint firstItem="RKv-Db-V8E" firstAttribute="trailing" secondItem="FqR-qE-Xcp" secondAttribute="trailing" id="RZB-dS-Jxt"/>
                             <constraint firstItem="RKv-Db-V8E" firstAttribute="centerX" secondItem="z7u-Q6-bww" secondAttribute="centerX" id="RZv-RL-aR6"/>
                             <constraint firstItem="NEa-1n-4CE" firstAttribute="centerX" secondItem="z7u-Q6-bww" secondAttribute="centerX" id="SVf-No-H4z"/>
                             <constraint firstItem="RKv-Db-V8E" firstAttribute="leading" secondItem="FqR-qE-Xcp" secondAttribute="leading" id="eEp-9h-GEz"/>
+                            <constraint firstItem="KdE-GH-avh" firstAttribute="top" secondItem="NEa-1n-4CE" secondAttribute="bottom" constant="54" id="ewy-rM-yAJ"/>
                             <constraint firstItem="RKv-Db-V8E" firstAttribute="leading" secondItem="FqR-qE-Xcp" secondAttribute="leading" id="kgC-ON-NXU"/>
                             <constraint firstItem="NEa-1n-4CE" firstAttribute="centerX" secondItem="z7u-Q6-bww" secondAttribute="centerX" id="m9k-J0-N2f"/>
                         </constraints>
@@ -427,6 +439,119 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="img-vT-vVP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3182.608695652174" y="859.82142857142856"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="RVL-fz-x47">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="wGC-97-lwB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ej2-7N-6qX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. Please sit down and have iWatch correctly weared." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bk8-xC-Jio">
+                                <rect key="frame" x="47" y="272" width="320" height="62.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="LLx-aV-IM9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Unlock the iWatch." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67e-h7-K44">
+                                <rect key="frame" x="47" y="463" width="320" height="31.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="xwY-PD-Bqv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Keep the waists still." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2B2-wg-rmc">
+                                <rect key="frame" x="47" y="382" width="320" height="31.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="n8e-Dn-ako"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXn-Pf-0P2">
+                                <rect key="frame" x="46" y="661" width="322" height="68"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Next" backgroundImage="Rectangle">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="PlZ-ce-ldv" kind="presentation" id="qHC-sL-30M"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.22437414529999999" green="0.26151925329999998" blue="0.41029256580000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="67e-h7-K44" firstAttribute="top" secondItem="2B2-wg-rmc" secondAttribute="bottom" constant="49.5" id="Cog-AK-tIO"/>
+                            <constraint firstItem="2B2-wg-rmc" firstAttribute="leading" secondItem="Bk8-xC-Jio" secondAttribute="leading" id="Vmf-cT-sNU"/>
+                            <constraint firstItem="2B2-wg-rmc" firstAttribute="top" secondItem="Bk8-xC-Jio" secondAttribute="bottom" constant="47.5" id="VoR-dd-hWF"/>
+                            <constraint firstItem="fXn-Pf-0P2" firstAttribute="centerX" secondItem="Ej2-7N-6qX" secondAttribute="centerX" id="cNA-tP-M1w"/>
+                            <constraint firstItem="67e-h7-K44" firstAttribute="leading" secondItem="2B2-wg-rmc" secondAttribute="leading" id="hEW-lZ-C3t"/>
+                            <constraint firstItem="Bk8-xC-Jio" firstAttribute="centerX" secondItem="Ej2-7N-6qX" secondAttribute="centerX" id="jBW-z4-mz0"/>
+                            <constraint firstItem="9Am-km-XAk" firstAttribute="bottom" secondItem="fXn-Pf-0P2" secondAttribute="bottom" constant="133" id="pJE-KQ-OdO"/>
+                            <constraint firstItem="Bk8-xC-Jio" firstAttribute="top" secondItem="9Am-km-XAk" secondAttribute="top" constant="228" id="xkp-U3-Zpi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9Am-km-XAk"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ksa-Cv-iPp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3977" y="860"/>
+        </scene>
+        <!--Detect View Controller-->
+        <scene sceneID="2tj-vM-fdh">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="PlZ-ce-ldv" customClass="HRDetectViewController" customModule="EMA" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RL3-fY-PJA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please now open HeartRate app on iWatch and keep arm still. " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ps-Lv-8fR">
+                                <rect key="frame" x="30" y="245" width="354" height="93.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-U0-NqL">
+                                <rect key="frame" x="160" y="420" width="94" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.64954119919999997" green="0.12036988880000001" blue="0.1218554154" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startPressed:" destination="PlZ-ce-ldv" eventType="touchUpInside" id="cGU-ci-bSb"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="y4Q-8w-GlD">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.22437414529999999" green="0.26151925329999998" blue="0.41029256580000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="8ps-Lv-8fR" firstAttribute="leading" secondItem="ERh-OI-T1k" secondAttribute="leading" constant="30" id="2Cy-ab-Q05"/>
+                            <constraint firstItem="ERh-OI-T1k" firstAttribute="trailing" secondItem="8ps-Lv-8fR" secondAttribute="trailing" constant="30" id="9vr-gR-1rP"/>
+                            <constraint firstItem="y4Q-8w-GlD" firstAttribute="centerX" secondItem="RL3-fY-PJA" secondAttribute="centerX" id="QMO-yH-2my"/>
+                            <constraint firstItem="y4Q-8w-GlD" firstAttribute="centerY" secondItem="RL3-fY-PJA" secondAttribute="centerY" id="fKt-ar-8Ia"/>
+                            <constraint firstItem="8ps-Lv-8fR" firstAttribute="top" secondItem="ERh-OI-T1k" secondAttribute="top" constant="201" id="yLY-B4-GIN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ERh-OI-T1k"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityMarker" destination="y4Q-8w-GlD" id="IFI-4z-e03"/>
+                        <outlet property="startButton" destination="g3P-U0-NqL" id="mVj-C0-3gI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WUy-B7-cWI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4740.579710144928" y="859.82142857142856"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
