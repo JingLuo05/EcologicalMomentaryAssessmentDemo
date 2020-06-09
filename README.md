@@ -13,9 +13,6 @@
 <p align="center">
   <img src="resources/QuestionExample.JPG" height="50%" width="50%"/>
 </p>
-<p align="right">
-  <img src="resources/ScaleQuestionExample.png" height="50%" width="50%"/>
-</p>
 
 * Can read heart rate data from Apple Watch
 
