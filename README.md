@@ -1,11 +1,21 @@
 # Ecological Momentary Assessment Demo
-[Current State](#CurrentState) | [To do](#Todo) | [Requirements](#Requirements)
+[Requirements](#Requirements) | [Current State](#CurrentState) | [To do](#Todo) 
+
+
+## Requirements
+
+* Get timestamped RR intervals in millisecond accuracy
+* Get time series relating to the tasks
 
 ## CurrentState
 
 * Finished the front-end of Questionnaire data collection (choice questions and scale questions)
-![Choice image](resources/ChoiceQuestionExample.png) <!-- .element height="50%" width="50%" -->
-![Schale image](resources/ScaleQuestionExample.png) <!-- .element height="50%" width="50%" -->
+<p align="center">
+  <img src="resources/QuestionExample.JPG" height="50%" width="50%"/>
+</p>
+<p align="right">
+  <img src="resources/ScaleQuestionExample.png" height="50%" width="50%"/>
+</p>
 
 * Can read heart rate data from Apple Watch
 
@@ -19,10 +29,3 @@
   * Images need to be replaced
   * Add Back button
   * Label layout
-
-
-## Requirements
-
-* Get timestamped RR intervals in millisecond accuracy
-* Get time series relating to the tasks
-
