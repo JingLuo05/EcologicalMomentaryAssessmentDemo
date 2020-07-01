@@ -5,7 +5,7 @@
 ## Requirements
 
 * Get timestamped RR intervals in millisecond accuracy
-* Get time series relating to the tasks
+* Get real-time RR intervals relating to the tasks
 
 ## CurrentState
 
@@ -15,6 +15,11 @@
 </p>
 
 * Can read heart rate data from Apple Watch
+
+* Can get image samples from camera in milliseconds accuracy
+<p align="center">
+  <img src="resources/HRView.gif" height="50%" width="50%"/>
+</p>
 
 
 ## Todo
