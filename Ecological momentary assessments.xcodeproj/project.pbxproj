@@ -16,6 +16,7 @@
 		B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341724645D19008CA55A /* TestStartViewController.swift */; };
 		B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34192464749B008CA55A /* ChoiceDataBrain.swift */; };
 		B42C341C24649B13008CA55A /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */; };
+		B4858AC024A45E00002B2550 /* HRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4858ABF24A45E00002B2550 /* HRViewController.swift */; };
 		B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBB246054170086AD1D /* AppDelegate.swift */; };
 		B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBD246054170086AD1D /* SceneDelegate.swift */; };
 		B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBF246054170086AD1D /* MainViewController.swift */; };
@@ -35,6 +36,7 @@
 		B42C341724645D19008CA55A /* TestStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStartViewController.swift; sourceTree = "<group>"; };
 		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
 		B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
+		B4858ABF24A45E00002B2550 /* HRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRViewController.swift; sourceTree = "<group>"; };
 		B4C70CB8246054170086AD1D /* EMA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C70CBB246054170086AD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4C70CBD246054170086AD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C70CBF246054170086AD1D /* MainViewController.swift */,
+				B4858ABF24A45E00002B2550 /* HRViewController.swift */,
 				B42C341724645D19008CA55A /* TestStartViewController.swift */,
 				B42C34152464585A008CA55A /* LvlQuestionViewController.swift */,
 				B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */,
@@ -210,6 +213,7 @@
 				B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */,
 				B42B678C24781F09009E1CA6 /* HeartRateBrain.swift in Sources */,
 				B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */,
+				B4858AC024A45E00002B2550 /* HRViewController.swift in Sources */,
 				B40A635924635C100047E819 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
