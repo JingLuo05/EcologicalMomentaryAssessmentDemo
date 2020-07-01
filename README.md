@@ -11,14 +11,14 @@
 
 * Finished the front-end of Questionnaire data collection (choice questions and scale questions)
 <p align="center">
-  <img src="resources/QuestionExample.JPG" height="25%" width="25%"/>
+  <img src="resources/QuestionExample.JPG" height="50%" width="50%"/>
 </p>
 
 * Can read heart rate data from Apple Watch
 
 * Can get image samples from camera in milliseconds accuracy
 <p align="center">
-  <img src="resources/HRView.gif" height="50%" width="50%"/>
+  <img src="resources/HRView.gif" height="25%" width="25%"/>
 </p>
 
 
