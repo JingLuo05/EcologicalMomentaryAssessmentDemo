@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		922AE54B07855DFE6DE3681D /* Pods_Ecological_momentary_assessments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0372C38A898BDFCB7F9B9EC /* Pods_Ecological_momentary_assessments.framework */; };
 		B40A635924635C100047E819 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635824635C100047E819 /* Data.swift */; };
 		B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */; };
 		B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422EBD424773439009E54D6 /* HRDetectViewController.swift */; };
@@ -23,9 +24,11 @@
 		B4C70CC3246054170086AD1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C70CC1246054170086AD1D /* Main.storyboard */; };
 		B4C70CC5246054200086AD1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4C70CC4246054200086AD1D /* Assets.xcassets */; };
 		B4C70CC8246054200086AD1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C70CC6246054200086AD1D /* LaunchScreen.storyboard */; };
+		B4CDA49924AE91E300CE7C2F /* CaptureManagerBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CDA49824AE91E300CE7C2F /* CaptureManagerBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		94FF1143BF06ADCBC23E53C4 /* Pods-Ecological momentary assessments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ecological momentary assessments.debug.xcconfig"; path = "Target Support Files/Pods-Ecological momentary assessments/Pods-Ecological momentary assessments.debug.xcconfig"; sourceTree = "<group>"; };
 		B40A635824635C100047E819 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDataBrain.swift; sourceTree = "<group>"; };
 		B422EBD424773439009E54D6 /* HRDetectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRDetectViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +48,9 @@
 		B4C70CC4246054200086AD1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4C70CC7246054200086AD1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4C70CC9246054200086AD1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4CDA49824AE91E300CE7C2F /* CaptureManagerBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureManagerBrain.swift; sourceTree = "<group>"; };
+		E0372C38A898BDFCB7F9B9EC /* Pods_Ecological_momentary_assessments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ecological_momentary_assessments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E32069536CBBD452EFCBF5EF /* Pods-Ecological momentary assessments.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ecological momentary assessments.release.xcconfig"; path = "Target Support Files/Pods-Ecological momentary assessments/Pods-Ecological momentary assessments.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,16 +59,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				B422EBD92477787A009E54D6 /* HealthKit.framework in Frameworks */,
+				922AE54B07855DFE6DE3681D /* Pods_Ecological_momentary_assessments.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		375940F71D9C00D41E323BAE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				94FF1143BF06ADCBC23E53C4 /* Pods-Ecological momentary assessments.debug.xcconfig */,
+				E32069536CBBD452EFCBF5EF /* Pods-Ecological momentary assessments.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B422EBD72477787A009E54D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				B422EBD82477787A009E54D6 /* HealthKit.framework */,
+				E0372C38A898BDFCB7F9B9EC /* Pods_Ecological_momentary_assessments.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -73,6 +90,7 @@
 				B4C70CBA246054170086AD1D /* Ecological momentary assessments */,
 				B4C70CB9246054170086AD1D /* Products */,
 				B422EBD72477787A009E54D6 /* Frameworks */,
+				375940F71D9C00D41E323BAE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +124,7 @@
 				B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */,
 				B42C34192464749B008CA55A /* ChoiceDataBrain.swift */,
 				B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */,
+				B4CDA49824AE91E300CE7C2F /* CaptureManagerBrain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,9 +158,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4C70CCC246054200086AD1D /* Build configuration list for PBXNativeTarget "Ecological momentary assessments" */;
 			buildPhases = (
+				D8AF266A693C3300546B3919 /* [CP] Check Pods Manifest.lock */,
 				B4C70CB4246054170086AD1D /* Sources */,
 				B4C70CB5246054170086AD1D /* Frameworks */,
 				B4C70CB6246054170086AD1D /* Resources */,
+				1C102E3F74983F415D5B661D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,6 +219,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1C102E3F74983F415D5B661D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ecological momentary assessments/Pods-Ecological momentary assessments-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Ecological momentary assessments/Pods-Ecological momentary assessments-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ecological momentary assessments/Pods-Ecological momentary assessments-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8AF266A693C3300546B3919 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ecological momentary assessments-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B4C70CB4246054170086AD1D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -212,6 +275,7 @@
 				B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */,
 				B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */,
 				B42B678C24781F09009E1CA6 /* HeartRateBrain.swift in Sources */,
+				B4CDA49924AE91E300CE7C2F /* CaptureManagerBrain.swift in Sources */,
 				B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */,
 				B4858AC024A45E00002B2550 /* HRViewController.swift in Sources */,
 				B40A635924635C100047E819 /* Data.swift in Sources */,
@@ -356,6 +420,7 @@
 		};
 		B4C70CCD246054200086AD1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94FF1143BF06ADCBC23E53C4 /* Pods-Ecological momentary assessments.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Ecological momentary assessments/EMARelease.entitlements";
@@ -376,6 +441,7 @@
 		};
 		B4C70CCE246054200086AD1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E32069536CBBD452EFCBF5EF /* Pods-Ecological momentary assessments.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Ecological momentary assessments/EMARelease.entitlements";

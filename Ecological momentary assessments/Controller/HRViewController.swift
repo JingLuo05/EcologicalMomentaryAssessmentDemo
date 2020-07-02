@@ -76,7 +76,7 @@ class HRViewController: UIViewController {
             startButton.backgroundColor = UIColor.white
             toggleFlash()
             CaptureManager.shared.stopSession()
-            //print(redChannel)
+            print(redChannel)
             print(timeStamp)
         }
     }
@@ -88,27 +88,26 @@ class HRViewController: UIViewController {
 //MARK: - Function to process captured image
 extension HRViewController: CaptureManagerDelegate {
     
-    
     func processCapturedImage(image: UIImage) {
         self.ImageV.image = image
         self.count += 1
         runTime = Date().timeIntervalSince1970
         sampleTime = runTime - startTime
         //print("Sample Time: \(sampleTime)")
-        self.timeStamp.append(sampleTime)
+        //self.timeStamp.append(sampleTime)
         //----------
-//        imageCopy = image
-//        sampleTimeCopy = sampleTime
-//        if imageCopy != nil {
-//            DispatchQueue.global(qos: .userInteractive).async {
-//                self.redChannel.append((self.getRedSum(image: self.imageCopy!)))
-//                self.timeStamp.append(self.sampleTimeCopy)
-//                //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
-//                //let result = self.rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
-//                //print("                Reslut Time: \(self.sampleTimeCopy), result: \(result.h)")
-//                //print("\(self.sampleTimeCopy),\(result.h)")
-//            }
-//        }
+        imageCopy = image
+        sampleTimeCopy = sampleTime
+        if imageCopy != nil {
+            DispatchQueue.global(qos: .userInteractive).async {
+                self.redChannel.append((self.getRedSum(image: self.imageCopy!)))
+                self.timeStamp.append(self.sampleTimeCopy)
+                //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
+                //let result = self.rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
+                //print("                Reslut Time: \(self.sampleTimeCopy), result: \(result.h)")
+                //print("\(self.sampleTimeCopy),\(result.h)")
+            }
+        }
         //----------
 //        if self.count % 2 == 0
 //        {
@@ -159,16 +158,16 @@ extension HRViewController: CaptureManagerDelegate {
         let  data : CFData = rawImageRef.dataProvider!.data!
         let rawPixelData  =  CFDataGetBytePtr(data);
         
-        let imageHeight = rawImageRef.height
-        let imageWidth  = rawImageRef.width
+        //let imageHeight = rawImageRef.height
+        //let imageWidth  = rawImageRef.width
         let bytesPerRow = rawImageRef.bytesPerRow
         let stride = rawImageRef.bitsPerPixel / 6
         
         var red = 0
         
-        for row in 0...imageHeight {
+        for row in 100...150 {
             var rowPtr = rawPixelData! + bytesPerRow * row
-            for _ in 0...imageWidth {
+            for _ in 100...150 {
                 red    += Int(rowPtr[0])
                 rowPtr += Int(stride)
             }
@@ -177,104 +176,30 @@ extension HRViewController: CaptureManagerDelegate {
         return red
     }
     
-    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (h:CGFloat, s:CGFloat, b:CGFloat) {
-        let minV:CGFloat = CGFloat(min(r, g, b))
-        let maxV:CGFloat = CGFloat(max(r, g, b))
-        let delta:CGFloat = maxV - minV
-        var hue:CGFloat = 0
-        if delta != 0 {
-            if r == maxV {
-                hue = (g - b) / delta
-            }
-            else if g == maxV {
-                hue = 2 + (b - r) / delta
-            }
-            else {
-                hue = 4 + (r - g) / delta
-            }
-            hue *= 60
-            if hue < 0 {
-                hue += 360
-            }
-        }
-        let saturation = maxV == 0 ? 0 : (delta / maxV)
-        let brightness = maxV
-        return (h:hue/360, s:saturation, b:brightness)
-    }
-}
-
-
-//MARK: - Set up capture session
-protocol CaptureManagerDelegate: class {
-    func processCapturedImage(image: UIImage)
-}
-
-class CaptureManager: NSObject {
-    internal static let shared = CaptureManager()
-    weak var delegate: CaptureManagerDelegate?
-    var session: AVCaptureSession?
-    
-    override init() {
-        super.init()
-        session = AVCaptureSession()
-        
-        //setup input
-        let device =  AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-        let input = try! AVCaptureDeviceInput(device: device!)
-        session?.addInput(input)
-        
-        //setup output
-        let output = AVCaptureVideoDataOutput()
-        // videoSettings is a dictionary value
-        //output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable as! String: kCVPixelFormatType_16BE555]
-        output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as AnyHashable as! String: kCVPixelFormatType_32BGRA]
-        output.setSampleBufferDelegate(self, queue: DispatchQueue.main)
-        session?.addOutput(output)
-    }
-    
-    func statSession() {
-        session?.startRunning()
-    }
-    
-    func stopSession() {
-        session?.stopRunning()
-    }
-    
-    func getImageFromSampleBuffer(sampleBuffer: CMSampleBuffer) ->UIImage? {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            return nil
-        }
-        CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
-        let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer)
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
-        let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        //let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder16Little.rawValue)
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue)
-        //change bitsPerComponent from 8 to 4
-        guard let context = CGContext(data: baseAddress, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {
-            return nil
-        }
-        guard let cgImage = context.makeImage() else {
-            return nil
-        }
-        //  print(cgImage.bitmapInfo)
-        //›print("bitsPerPixel: \(cgImage.bitsPerPixel)")
-        let image = UIImage(cgImage: cgImage, scale: 1, orientation:.right)
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
-        return image
-    }
-    
-}
-
-extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) else {
-            return
-        }
-        delegate?.processCapturedImage(image: outputImage)
-    }
+//    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (h:CGFloat, s:CGFloat, b:CGFloat) {
+//        let minV:CGFloat = CGFloat(min(r, g, b))
+//        let maxV:CGFloat = CGFloat(max(r, g, b))
+//        let delta:CGFloat = maxV - minV
+//        var hue:CGFloat = 0
+//        if delta != 0 {
+//            if r == maxV {
+//                hue = (g - b) / delta
+//            }
+//            else if g == maxV {
+//                hue = 2 + (b - r) / delta
+//            }
+//            else {
+//                hue = 4 + (r - g) / delta
+//            }
+//            hue *= 60
+//            if hue < 0 {
+//                hue += 360
+//            }
+//        }
+//        let saturation = maxV == 0 ? 0 : (delta / maxV)
+//        let brightness = maxV
+//        return (h:hue/360, s:saturation, b:brightness)
+//    }
 }
 
 //MARK: - Functions related to image processing
