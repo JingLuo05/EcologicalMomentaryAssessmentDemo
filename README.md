@@ -16,15 +16,19 @@
 
 * Can read heart rate data from Apple Watch
 
-* Can get image samples from camera in milliseconds accuracy
+* Can get image samples from camera in milliseconds accuracy, and show data after detection
 <p align="center">
   <img src="resources/HRView.gif" height="25%" width="25%"/>
+  <img src="resources/lineChartViewAdded.PNG" height="25%" width="25%"/>
 </p>
 
 
 ## Todo
 
-* Implement HRV detection using phone camera
+* Update real-time waveform
+* Read references and process sample images
+  * How to process sample images?
+  * Detect spikes to calculate HR and HRV
 * Build back-end platform to store data
 * User info input
 * Improve User Interface
