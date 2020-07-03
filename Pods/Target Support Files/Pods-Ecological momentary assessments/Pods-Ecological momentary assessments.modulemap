@@ -1,0 +1,6 @@
+framework module Pods_Ecological_momentary_assessments {
+  umbrella header "Pods-Ecological momentary assessments-umbrella.h"
+
+  export *
+  module * { export * }
+}

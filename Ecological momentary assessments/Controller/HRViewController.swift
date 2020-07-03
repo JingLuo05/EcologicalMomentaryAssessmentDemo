@@ -8,14 +8,17 @@
 
 import UIKit
 import AVFoundation
+import Charts
 
 var customPreviewLayer: AVCaptureVideoPreviewLayer?
 
-class HRViewController: UIViewController {
+class HRViewController: UIViewController, ChartViewDelegate {
     
     @IBOutlet weak var ImageV: UIImageView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var chartView: LineChartView!
+    
     
     var startTime = Date().timeIntervalSince1970
     var runTime = Date().timeIntervalSince1970
@@ -26,6 +29,9 @@ class HRViewController: UIViewController {
     var imageCopy: UIImage?
     var redChannel: [Int] = []
     var timeStamp: [Double] = []
+    
+    // Chart variables
+    var lineDataEntry: [ChartDataEntry] = []
     
     
     override func viewDidLoad() {
@@ -61,6 +67,13 @@ class HRViewController: UIViewController {
             backgroundView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
         ])
         
+        // Set chartView
+        chartView.delegate = self
+        //chartView.backgroundColor = UIColor.white
+        chartView.noDataTextColor = UIColor.white
+        chartView.noDataText = "No heart rate data yet."
+        
+        
         CaptureManager.shared.statSession()
         CaptureManager.shared.delegate = self
     }
@@ -78,6 +91,39 @@ class HRViewController: UIViewController {
             CaptureManager.shared.stopSession()
             print(redChannel)
             print(timeStamp)
+            
+            //Update chart
+            for i in 50 ..< count {
+                let dataPoint = ChartDataEntry(x: timeStamp[i], y: Double(redChannel[i]*(-1)/100))
+                lineDataEntry.append(dataPoint)
+            }
+            let chartDataSet = LineChartDataSet(entries: lineDataEntry, label: "Heart Beat")
+            let chartData = LineChartData()
+            chartData.addDataSet(chartDataSet)
+            chartData.setDrawValues(false)
+            chartDataSet.setCircleColor(UIColor.systemPink)
+            chartDataSet.circleRadius = 0.0
+            chartDataSet.mode = .cubicBezier
+            chartDataSet.cubicIntensity = 0.3
+            chartDataSet.drawCircleHoleEnabled = false
+            chartDataSet.fillAlpha = 65/255
+            
+            //chartDataSet.valueFont = UIFont(name: "Helvetica", size: 5.0)!
+            chartDataSet.valueFont = UIFont(name: "Helvetica", size: 12.0)!
+            chartView.xAxis.drawGridLinesEnabled = true
+            chartView.xAxis.labelPosition = .bottom
+            chartView.rightAxis.enabled = false
+            //let leftAxis = chartView.leftAxis
+            chartView.leftAxis.drawGridLinesEnabled = false
+            
+            
+            // Update data
+            chartView.data = chartData
+            
+            // Clear former redchannel and timestamp data
+            redChannel = []
+            timeStamp = []
+            
         }
     }
     
