@@ -20,28 +20,33 @@ class HRViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var chartView: LineChartView!
     
     
-    var startTime = Date().timeIntervalSince1970
-    var runTime = Date().timeIntervalSince1970
+    var startTime = Date().timeIntervalSince1970    //system time when pressed "start button"
+    var runTime = Date().timeIntervalSince1970      //system time when get sample
     
     var sampleTime = Date().timeIntervalSince1970
     var sampleTimeCopy = Date().timeIntervalSince1970
-    var count = 0
-    var imageCopy: UIImage?
-    var redChannel: [Int] = []
-    var timeStamp: [Double] = []
+    var count = 0                                   //count how many samples have captured
+    var isStarted = false                           //whether startButton is pressed
+    var imageCopy: UIImage?                         //use sampel copy to process
+    var redChannel: [Int] = []                      //sample result: Currenly just sum RBG red value of partial pixels
+    var timeStamp: [Double] = []                    //time stamp for every sample
     
     // Chart variables
+    var timer = Timer()
     var lineDataEntry: [ChartDataEntry] = []
+    let chartData = LineChartData()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isStarted = false
+        
         // Set the UI
         startButton.setTitle("Start", for: .normal)
         startButton.layer.cornerRadius = 10
         
-        // set the imageview for camera
+        // set the imageview for view from camera
         ImageV.image = UIImage(named: "AppIcon")
         ImageV.contentMode = UIView.ContentMode.scaleAspectFill
         ImageV.layer.borderWidth = 4.0
@@ -72,35 +77,60 @@ class HRViewController: UIViewController, ChartViewDelegate {
         //chartView.backgroundColor = UIColor.white
         chartView.noDataTextColor = UIColor.white
         chartView.noDataText = "No heart rate data yet."
+        chartView.highlightPerTapEnabled = true
         
         
-        CaptureManager.shared.statSession()
+        
+        CaptureManager.shared.startSession()
         CaptureManager.shared.delegate = self
     }
     
     @IBAction func startPressed(_ sender: UIButton) {
         if startButton.currentTitle == "Start" {
+            chartView.clearValues()
+            
+            CaptureManager.shared.startSession()
+            toggleFlash()
+            
+            isStarted = true
             startTime = Date().timeIntervalSince1970
             startButton.setTitle("Stop", for: .normal)
             startButton.backgroundColor = UIColor.green
-            toggleFlash()
-        } else if startButton.currentTitle == "Stop" {
+            
+            
+            timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateChart), userInfo: nil, repeats: true)
+        }
+        
+        else if startButton.currentTitle == "Stop" {
+            isStarted = false
+            timer.invalidate()
             startButton.setTitle("Start", for: .normal)
             startButton.backgroundColor = UIColor.white
-            toggleFlash()
             CaptureManager.shared.stopSession()
+            toggleFlash()
             print(redChannel)
             print(timeStamp)
             
-            //Update chart
-            for i in 50 ..< count {
-                let dataPoint = ChartDataEntry(x: timeStamp[i], y: Double(redChannel[i]*(-1)/100))
-                lineDataEntry.append(dataPoint)
-            }
-            let chartDataSet = LineChartDataSet(entries: lineDataEntry, label: "Heart Beat")
-            let chartData = LineChartData()
-            chartData.addDataSet(chartDataSet)
-            chartData.setDrawValues(false)
+            //clear chartData from last session
+            lineDataEntry = []
+            
+            // Clear former redchannel and timestamp data
+            count = 0
+            redChannel = []
+            timeStamp = []
+            
+        }
+    }
+    
+    
+    @objc func updateChart()  {
+        // Init chart UI
+        // Update data
+        //Set up chart UI
+        DispatchQueue.main.async {
+            let chartDataSet = LineChartDataSet(entries: self.lineDataEntry)
+            self.chartData.addDataSet(chartDataSet)
+            self.chartData.setDrawValues(true)
             chartDataSet.setCircleColor(UIColor.systemPink)
             chartDataSet.circleRadius = 0.0
             chartDataSet.mode = .cubicBezier
@@ -110,24 +140,15 @@ class HRViewController: UIViewController, ChartViewDelegate {
             
             //chartDataSet.valueFont = UIFont(name: "Helvetica", size: 5.0)!
             chartDataSet.valueFont = UIFont(name: "Helvetica", size: 12.0)!
-            chartView.xAxis.drawGridLinesEnabled = true
-            chartView.xAxis.labelPosition = .bottom
-            chartView.rightAxis.enabled = false
+            self.chartView.legend.enabled = false
+            self.chartView.xAxis.drawGridLinesEnabled = true
+            self.chartView.xAxis.labelPosition = .bottom
+            self.chartView.rightAxis.enabled = false
             //let leftAxis = chartView.leftAxis
-            chartView.leftAxis.drawGridLinesEnabled = false
-            
-            
-            // Update data
-            chartView.data = chartData
-            
-            // Clear former redchannel and timestamp data
-            redChannel = []
-            timeStamp = []
-            
+            self.chartView.leftAxis.drawGridLinesEnabled = false
+            self.chartView.data = self.chartData
         }
     }
-    
-    
     
 }
 
@@ -136,24 +157,32 @@ extension HRViewController: CaptureManagerDelegate {
     
     func processCapturedImage(image: UIImage) {
         self.ImageV.image = image
-        self.count += 1
-        runTime = Date().timeIntervalSince1970
-        sampleTime = runTime - startTime
-        //print("Sample Time: \(sampleTime)")
-        //self.timeStamp.append(sampleTime)
-        //----------
-        imageCopy = image
-        sampleTimeCopy = sampleTime
-        if imageCopy != nil {
-            DispatchQueue.global(qos: .userInteractive).async {
-                self.redChannel.append((self.getRedSum(image: self.imageCopy!)))
-                self.timeStamp.append(self.sampleTimeCopy)
-                //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
-                //let result = self.rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
-                //print("                Reslut Time: \(self.sampleTimeCopy), result: \(result.h)")
-                //print("\(self.sampleTimeCopy),\(result.h)")
+        if isStarted {
+            runTime = Date().timeIntervalSince1970
+            sampleTime = runTime - startTime
+            //print("Sample Time: \(sampleTime)")
+            //self.timeStamp.append(sampleTime)
+            //----------
+            imageCopy = image
+            sampleTimeCopy = sampleTime
+            if imageCopy != nil {
+                DispatchQueue.global(qos: .userInteractive).async {
+                    let sum = self.getRedSum(image: self.imageCopy!)
+                    self.redChannel.append(sum)
+                    self.timeStamp.append(self.sampleTimeCopy)
+                    if self.count > 30 {
+                        let dataPoint = ChartDataEntry(x: self.sampleTimeCopy, y: Double(sum * (-1) / 100))
+                        self.lineDataEntry.append(dataPoint)
+                    }
+                    //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
+                    //let result = self.rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
+                    //print("                Reslut Time: \(self.sampleTimeCopy), result: \(result.h)")
+                    //print("\(self.sampleTimeCopy),\(result.h)")
+                }
             }
+            self.count += 1
         }
+
         //----------
 //        if self.count % 2 == 0
 //        {

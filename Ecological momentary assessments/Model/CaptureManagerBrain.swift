@@ -36,7 +36,7 @@ class CaptureManager: NSObject {
         session?.addOutput(output)
     }
     
-    func statSession() {
+    func startSession() {
         session?.startRunning()
     }
     
