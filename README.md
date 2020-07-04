@@ -1,5 +1,5 @@
 # Ecological Momentary Assessment Demo
-[Requirements](#Requirements) | [Current State](#CurrentState) | [To do](#Todo) 
+[Requirements](#Requirements) | [Current State](#CurrentState) | [To do](#Todo) | [Finished](#Finished)
 
 
 ## Requirements
@@ -16,16 +16,15 @@
 
 * Can read heart rate data from Apple Watch
 
-* Can get image samples from camera in milliseconds accuracy, and show data after detection
+* Can get image samples from camera in milliseconds accuracy, and show data in real-time
 <p align="center">
   <img src="resources/HRView.gif" height="25%" width="25%"/>
-  <img src="resources/lineChartViewAdded.PNG" height="25%" width="25%"/>
+  <img src="resources/chartView_realtime.gif" height="25%" width="25%"/>
 </p>
 
 
 ## Todo
 
-* Update real-time waveform
 * Read references and process sample images
   * How to process sample images?
   * Detect spikes to calculate HR and HRV
@@ -35,3 +34,8 @@
   * Images need to be replaced
   * Add Back button
   * Label layout
+  
+  
+## Finished
+
+* Update real-time waveform
