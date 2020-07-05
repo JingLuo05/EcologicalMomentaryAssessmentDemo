@@ -17,6 +17,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var ImageV: UIImageView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var HRLabel: UILabel!
     @IBOutlet weak var chartView: LineChartView!
     
     
@@ -97,10 +98,10 @@ class HRViewController: UIViewController, ChartViewDelegate {
             startButton.setTitle("Stop", for: .normal)
             startButton.backgroundColor = UIColor.green
             
-            
+            //Update chartView every 2 seconds
             timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateChart), userInfo: nil, repeats: true)
         }
-        
+            
         else if startButton.currentTitle == "Stop" {
             isStarted = false
             timer.invalidate()
@@ -147,6 +148,10 @@ class HRViewController: UIViewController, ChartViewDelegate {
             //let leftAxis = chartView.leftAxis
             self.chartView.leftAxis.drawGridLinesEnabled = false
             self.chartView.data = self.chartData
+            
+            let heartrate = self.calculateHR(HR: self.redChannel, time: self.timeStamp, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 50)
+            self.HRLabel.text = String(heartrate)
+            
         }
     }
     
@@ -160,18 +165,15 @@ extension HRViewController: CaptureManagerDelegate {
         if isStarted {
             runTime = Date().timeIntervalSince1970
             sampleTime = runTime - startTime
-            //print("Sample Time: \(sampleTime)")
-            //self.timeStamp.append(sampleTime)
-            //----------
             imageCopy = image
             sampleTimeCopy = sampleTime
             if imageCopy != nil {
                 DispatchQueue.global(qos: .userInteractive).async {
-                    let sum = self.getRedSum(image: self.imageCopy!)
+                    let sum = (self.getRedSum(image: self.imageCopy!)) * (-1)
                     self.redChannel.append(sum)
                     self.timeStamp.append(self.sampleTimeCopy)
                     if self.count > 30 {
-                        let dataPoint = ChartDataEntry(x: self.sampleTimeCopy, y: Double(sum * (-1) / 100))
+                        let dataPoint = ChartDataEntry(x: self.sampleTimeCopy, y: Double(sum / 100))
                         self.lineDataEntry.append(dataPoint)
                     }
                     //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
@@ -182,27 +184,47 @@ extension HRViewController: CaptureManagerDelegate {
             }
             self.count += 1
         }
-
         //----------
-//        if self.count % 2 == 0
-//        {
-//            imageCopy = image
-//            sampleTimeCopy = sampleTime
-//            if imageCopy != nil {
-//                sampleTimeCopy = sampleTime
-//                DispatchQueue.global(qos: .userInteractive).async {
-//                    self.redChannel.append((self.getRedSum(image: self.imageCopy!)))
-//                    self.timeStamp.append(self.sampleTimeCopy)
-//                    //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
-//                    //let result = self.rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
-//                    //print("                Reslut Time: \(self.sampleTimeCopy), result: \(result.h)")
-//                    //print("\(self.sampleTimeCopy),\(result.h)")
-//                }
-//            }
-//        }
+        //        if self.count % 2 == 0
+        //        {
+        //            imageCopy = image
+        //            sampleTimeCopy = sampleTime
+        //            if imageCopy != nil {
+        //                sampleTimeCopy = sampleTime
+        //                DispatchQueue.global(qos: .userInteractive).async {
+        //                    self.redChannel.append((self.getRedSum(image: self.imageCopy!)))
+        //                    self.timeStamp.append(self.sampleTimeCopy)
+        //                    //let averageColor = self.imageCopy!.averageColor(alpha: 1.0)
+        //                    //let result = self.rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
+        //                    //print("                Reslut Time: \(self.sampleTimeCopy), result: \(result.h)")
+        //                    //print("\(self.sampleTimeCopy),\(result.h)")
+        //                }
+        //            }
+        //        }
         //let averageColor = image.averageColor(alpha: 1.0)
         //let result = rgbToHue(r: averageColor.components!.red, g: averageColor.components!.green, b: averageColor.components!.blue)
         
+    }
+    
+    func calculateHR(HR: [Int], time: [Double], THRESHOLD: Int, HIGHFILTER: Double, LOWFILTER: Double) -> Int {
+        var heartRate  = 0
+        
+        let queue = Queue<Double>()
+        for i in 5 ..< HR.count - 3 {
+            if ((HR[i] - HR[i - 3]) > THRESHOLD && HR[i] - HR[i + 3] > THRESHOLD) {
+                queue.enqueue(time[i])
+            }
+            if queue.count >= 2 {
+                let firstBeat = queue.dequeue()!
+                let secondBeat = queue.tail!
+                let oneBeatTime = secondBeat - firstBeat
+                let HR = 60 / oneBeatTime
+                if HR < HIGHFILTER && HR > LOWFILTER {
+                    heartRate = Int(HR)
+                }
+            }
+        }
+        return heartRate
     }
     
     func toggleFlash() {
@@ -251,30 +273,30 @@ extension HRViewController: CaptureManagerDelegate {
         return red
     }
     
-//    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (h:CGFloat, s:CGFloat, b:CGFloat) {
-//        let minV:CGFloat = CGFloat(min(r, g, b))
-//        let maxV:CGFloat = CGFloat(max(r, g, b))
-//        let delta:CGFloat = maxV - minV
-//        var hue:CGFloat = 0
-//        if delta != 0 {
-//            if r == maxV {
-//                hue = (g - b) / delta
-//            }
-//            else if g == maxV {
-//                hue = 2 + (b - r) / delta
-//            }
-//            else {
-//                hue = 4 + (r - g) / delta
-//            }
-//            hue *= 60
-//            if hue < 0 {
-//                hue += 360
-//            }
-//        }
-//        let saturation = maxV == 0 ? 0 : (delta / maxV)
-//        let brightness = maxV
-//        return (h:hue/360, s:saturation, b:brightness)
-//    }
+    //    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (h:CGFloat, s:CGFloat, b:CGFloat) {
+    //        let minV:CGFloat = CGFloat(min(r, g, b))
+    //        let maxV:CGFloat = CGFloat(max(r, g, b))
+    //        let delta:CGFloat = maxV - minV
+    //        var hue:CGFloat = 0
+    //        if delta != 0 {
+    //            if r == maxV {
+    //                hue = (g - b) / delta
+    //            }
+    //            else if g == maxV {
+    //                hue = 2 + (b - r) / delta
+    //            }
+    //            else {
+    //                hue = 4 + (r - g) / delta
+    //            }
+    //            hue *= 60
+    //            if hue < 0 {
+    //                hue += 360
+    //            }
+    //        }
+    //        let saturation = maxV == 0 ? 0 : (delta / maxV)
+    //        let brightness = maxV
+    //        return (h:hue/360, s:saturation, b:brightness)
+    //    }
 }
 
 //MARK: - Functions related to image processing

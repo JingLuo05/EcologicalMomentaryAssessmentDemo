@@ -17,6 +17,8 @@
 		B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341724645D19008CA55A /* TestStartViewController.swift */; };
 		B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34192464749B008CA55A /* ChoiceDataBrain.swift */; };
 		B42C341C24649B13008CA55A /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */; };
+		B47A8D1A24B180B7003C1028 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47A8D1924B180B7003C1028 /* Queue.swift */; };
+		B47A8D1C24B18386003C1028 /* HRUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47A8D1B24B18386003C1028 /* HRUILabel.swift */; };
 		B4858AC024A45E00002B2550 /* HRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4858ABF24A45E00002B2550 /* HRViewController.swift */; };
 		B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBB246054170086AD1D /* AppDelegate.swift */; };
 		B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBD246054170086AD1D /* SceneDelegate.swift */; };
@@ -39,6 +41,8 @@
 		B42C341724645D19008CA55A /* TestStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStartViewController.swift; sourceTree = "<group>"; };
 		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
 		B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
+		B47A8D1924B180B7003C1028 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		B47A8D1B24B18386003C1028 /* HRUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRUILabel.swift; sourceTree = "<group>"; };
 		B4858ABF24A45E00002B2550 /* HRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRViewController.swift; sourceTree = "<group>"; };
 		B4C70CB8246054170086AD1D /* EMA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C70CBB246054170086AD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				B42C34192464749B008CA55A /* ChoiceDataBrain.swift */,
 				B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */,
 				B4CDA49824AE91E300CE7C2F /* CaptureManagerBrain.swift */,
+				B47A8D1924B180B7003C1028 /* Queue.swift */,
+				B47A8D1B24B18386003C1028 /* HRUILabel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,6 +273,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */,
+				B47A8D1C24B18386003C1028 /* HRUILabel.swift in Sources */,
+				B47A8D1A24B180B7003C1028 /* Queue.swift in Sources */,
 				B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */,
 				B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */,
 				B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */,
