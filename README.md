@@ -18,7 +18,6 @@
 
 * Can get image samples from camera in milliseconds accuracy, show data in real-time and calculate heart rate every 2 seconds using interval time between latest 2 heartbeats
 <p align="center">
-  <img src="resources/HRView.gif" height="25%" width="25%"/>
   <img src="resources/HRLabelAdded.gif" height="25%" width="25%"/>
 </p>
 
