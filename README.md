@@ -5,8 +5,6 @@
 ## Requirements
 
 * Stream video from camera is not needed
-* Higher temporal resulotion(30 Hz to 60 Hz)
-* Store the video and process offline
 * Get timestamped RR intervals in millisecond accuracy
 * Get real-time RR intervals relating to the tasks
 
@@ -43,3 +41,4 @@
 ## Finished
 
 * Update real-time waveform
+* Higher temporal resulotion(30 Hz to 60 Hz)
