@@ -4,6 +4,7 @@
 
 ## Requirements
 
+* Stream video from camera is not needed
 * Get timestamped RR intervals in millisecond accuracy
 * Get real-time RR intervals relating to the tasks
 
@@ -16,15 +17,16 @@
 
 * Can read heart rate data from Apple Watch
 
-* Can get image samples from camera in milliseconds accuracy, and show data in real-time
+* Can get image samples from camera in milliseconds accuracy, show data in real-time and calculate heart rate every 2 seconds using interval time between latest 2 heartbeats
 <p align="center">
-  <img src="resources/HRView.gif" height="25%" width="25%"/>
-  <img src="resources/chartView_realtime.gif" height="25%" width="25%"/>
+  <img src="resources/HRLabelAdded.gif" height="25%" width="25%"/>
 </p>
 
 
 ## Todo
 
+* Record the video
+* Store the video to cloud
 * Read references and process sample images
   * How to process sample images?
   * Detect spikes to calculate HR and HRV
@@ -39,3 +41,4 @@
 ## Finished
 
 * Update real-time waveform
+* Higher temporal resulotion(30 Hz to 60 Hz)
