@@ -27,6 +27,9 @@ class CaptureManager: NSObject {
         let input = try! AVCaptureDeviceInput(device: device!)
         session?.addInput(input)
         
+        // Set video to 60 Hz
+        configureFPS(device: device!)
+        
         //setup output
         let output = AVCaptureVideoDataOutput()
         // videoSettings is a dictionary value
@@ -70,6 +73,32 @@ class CaptureManager: NSObject {
         return image
     }
     
+    func configureFPS(device: AVCaptureDevice) {
+        var finalFormat: AVCaptureDevice.Format?
+        var maxFps: Double = 0
+        for vFormat in device.formats
+        {
+            let ranges      = vFormat.videoSupportedFrameRateRanges
+            let frameRates  = ranges[0]
+            if frameRates.maxFrameRate >= maxFps && frameRates.maxFrameRate <= 60
+            {
+                maxFps = frameRates.maxFrameRate
+                finalFormat = vFormat
+            }
+        }
+
+        do {
+            try device.lockForConfiguration()
+            device.activeFormat = finalFormat!
+            device.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 60)
+            device.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 60)
+            device.unlockForConfiguration()
+        } catch {
+            print("Fail to set frame rate")
+        }
+
+    }
+    
 }
 
 extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -77,6 +106,7 @@ extension CaptureManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let outputImage = getImageFromSampleBuffer(sampleBuffer: sampleBuffer) else {
             return
         }
+        //print("sample buffer number: \(sampleBuffer.numSamples)")
         delegate?.processCapturedImage(image: outputImage)
     }
 }

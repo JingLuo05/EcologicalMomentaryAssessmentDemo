@@ -55,7 +55,7 @@ class LvlQuestionViewController: UIViewController {
             let totalQuestion = choiceDataBrain.choiceQuestions.count - 1
             let currentOptions = choiceDataBrain.getQuestionOptions()
 
-            for i in 0...totalQuestion {
+            for _ in 0...totalQuestion {
                 for j in 0...5 {
                     destinationVC.options.append(currentOptions[j])
                 }
