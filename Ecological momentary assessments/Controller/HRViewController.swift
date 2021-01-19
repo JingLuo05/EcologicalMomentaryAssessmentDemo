@@ -34,7 +34,13 @@ class HRViewController: UIViewController, ChartViewDelegate {
     var redChannel: [Int] = []                      //sample result: Currenly just sum RBG red value of partial pixels
     var timeStamp: [Double] = []                    //time stamp for every sample
     var heartbeatTimeStamp: [Double] = []           //store every heartbeat time
+    var passDataDelegate: PassDataDelegate?
+    var name: String = ""                          //user name from first storyboard
+    var age = 0                                    //user age from first storyboard
     //var postData: Post                              //data set sent to backend
+    
+    // AWS URL
+    var httpURL = "http://ec2-52-91-138-189.compute-1.amazonaws.com:8080/save"
     
     // Chart variables
     var timer = Timer()
@@ -87,7 +93,10 @@ class HRViewController: UIViewController, ChartViewDelegate {
         chartView.noDataText = "No heart rate data yet."
         chartView.highlightPerTapEnabled = true
         
-        
+        //set TPT name
+        let tabbar = tabBarController as! TabBarController
+        self.name = tabbar.ptpName
+        print("PTP name:" + self.name)
         
         CaptureManager.shared.startSession()
         CaptureManager.shared.delegate = self
@@ -133,12 +142,12 @@ class HRViewController: UIViewController, ChartViewDelegate {
             // Send data to backend
             
             // prepare json data
-            let json: [String: Any] = ["hr": redChannel, "time": timeStamp]
+            let json: [String: Any] = ["hr": redChannel, "time": timeStamp, "PTP": name]
 
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
             // create post request
-            let url = URL(string: "http://ec2-18-191-67-51.us-east-2.compute.amazonaws.com:8080/save")!
+            let url = URL(string: httpURL)!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
 
@@ -157,7 +166,9 @@ class HRViewController: UIViewController, ChartViewDelegate {
             }
 
             task.resume()
-            
+            print("name:")
+            print(name)
+            print(age)
             
             
             //clear chartData from last session
@@ -486,3 +497,12 @@ extension UIColor {
     }
 }
 
+extension HRViewController: PassDataDelegate {
+    func getName(name: String) {
+        self.name = name
+    }
+    
+    func getAge(age: Int) {
+        self.age = age
+    }
+}

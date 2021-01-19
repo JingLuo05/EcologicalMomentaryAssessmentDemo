@@ -14,21 +14,16 @@ class Post: Codable {
     //let userName: String
     let timestamp: [Double]
     let hr: [Int]
+    let name: [String]
 
     enum CodingKeys: String, CodingKey {
        // case userName = "userName"
-        case hr, timestamp
+        case hr, timestamp, name
     }
-
-//    init(userName: String, id: Int, hr: [Double], timestamp: [Double]) {
-//        self.userName = userName
-//        self.id = id
-//        self.hr = hr
-//        self.timestamp = timestamp
-//    }
     
-    init(hr: [Int], timestamp: [Double]) {
+    init(hr: [Int], timestamp: [Double], name: [String]) {
         self.hr = hr
         self.timestamp = timestamp
+        self.name = name
     }
 }

@@ -18,9 +18,11 @@
 		B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34192464749B008CA55A /* ChoiceDataBrain.swift */; };
 		B42C341C24649B13008CA55A /* ChoiceQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */; };
 		B42C6D5F2564DE9800CDBA69 /* PostDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C6D5E2564DE9800CDBA69 /* PostDataClass.swift */; };
+		B46508F825B6A5CE0020B543 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46508F725B6A5CE0020B543 /* TabBarController.swift */; };
 		B47A8D1A24B180B7003C1028 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47A8D1924B180B7003C1028 /* Queue.swift */; };
 		B47A8D1C24B18386003C1028 /* HRUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47A8D1B24B18386003C1028 /* HRUILabel.swift */; };
 		B4858AC024A45E00002B2550 /* HRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4858ABF24A45E00002B2550 /* HRViewController.swift */; };
+		B4AF8C9D2591637D00B1416E /* PassDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF8C9C2591637D00B1416E /* PassDataDelegate.swift */; };
 		B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBB246054170086AD1D /* AppDelegate.swift */; };
 		B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBD246054170086AD1D /* SceneDelegate.swift */; };
 		B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C70CBF246054170086AD1D /* MainViewController.swift */; };
@@ -43,9 +45,11 @@
 		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
 		B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceQuestionViewController.swift; sourceTree = "<group>"; };
 		B42C6D5E2564DE9800CDBA69 /* PostDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataClass.swift; sourceTree = "<group>"; };
+		B46508F725B6A5CE0020B543 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B47A8D1924B180B7003C1028 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		B47A8D1B24B18386003C1028 /* HRUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRUILabel.swift; sourceTree = "<group>"; };
 		B4858ABF24A45E00002B2550 /* HRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRViewController.swift; sourceTree = "<group>"; };
+		B4AF8C9C2591637D00B1416E /* PassDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDataDelegate.swift; sourceTree = "<group>"; };
 		B4C70CB8246054170086AD1D /* EMA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C70CBB246054170086AD1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4C70CBD246054170086AD1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				B40A635824635C100047E819 /* Data.swift */,
+				B4AF8C9C2591637D00B1416E /* PassDataDelegate.swift */,
 				B42C6D5E2564DE9800CDBA69 /* PostDataClass.swift */,
 				B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */,
 				B42C34192464749B008CA55A /* ChoiceDataBrain.swift */,
@@ -150,6 +155,7 @@
 		B4C70CD2246054A40086AD1D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B46508F725B6A5CE0020B543 /* TabBarController.swift */,
 				B4C70CBF246054170086AD1D /* MainViewController.swift */,
 				B4858ABF24A45E00002B2550 /* HRViewController.swift */,
 				B42C341724645D19008CA55A /* TestStartViewController.swift */,
@@ -275,8 +281,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4AF8C9D2591637D00B1416E /* PassDataDelegate.swift in Sources */,
 				B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */,
 				B47A8D1C24B18386003C1028 /* HRUILabel.swift in Sources */,
+				B46508F825B6A5CE0020B543 /* TabBarController.swift in Sources */,
 				B47A8D1A24B180B7003C1028 /* Queue.swift in Sources */,
 				B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */,
 				B42C6D5F2564DE9800CDBA69 /* PostDataClass.swift in Sources */,
@@ -367,7 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
