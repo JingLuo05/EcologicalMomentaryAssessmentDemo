@@ -33,8 +33,9 @@ class HRViewController: UIViewController, ChartViewDelegate {
     var imageCopy: UIImage?                         //use sample copy to process
     var redChannel: [Int] = []                      //sample result: Currenly just sum RBG red value of partial pixels
     var timeStamp: [Double] = []                    //time stamp for every sample
+    var redChannel_cut: [Int] = []                      //sample result: Currenly just sum RBG red value of partial pixels
+    var timeStamp_cut: [Double] = []                    //time stamp for every sample
     var heartbeatTimeStamp: [Double] = []           //store every heartbeat time
-    var passDataDelegate: PassDataDelegate?
     var name: String = ""                          //user name from first storyboard
     var age = 0                                    //user age from first storyboard
     //var postData: Post                              //data set sent to backend
@@ -93,11 +94,6 @@ class HRViewController: UIViewController, ChartViewDelegate {
         chartView.noDataText = "No heart rate data yet."
         chartView.highlightPerTapEnabled = true
         
-        //set TPT name
-        let tabbar = tabBarController as! TabBarController
-        self.name = tabbar.ptpName
-        print("PTP name:" + self.name)
-        
         CaptureManager.shared.startSession()
         CaptureManager.shared.delegate = self
     }
@@ -140,9 +136,21 @@ class HRViewController: UIViewController, ChartViewDelegate {
             
             
             // Send data to backend
+            //get user id and age
+            let defaults = UserDefaults.standard
+            if let userID = defaults.string(forKey: UserDefault.id) {
+                print("user ID: \(userID)")
+                self.name = userID
+            }
+            if let userAge = defaults.string(forKey: UserDefault.age) {
+                self.age = Int(userAge) ?? 0
+            }
             
             // prepare json data
-            let json: [String: Any] = ["hr": redChannel, "time": timeStamp, "PTP": name]
+            redChannel_cut = Array(redChannel[120..<redChannel.count])
+            timeStamp_cut = Array(timeStamp[120..<timeStamp.count])
+            
+            let json: [String: Any] = ["hr": redChannel_cut, "time": timeStamp_cut, "PTP": name, "age": self.age]
 
             let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
@@ -212,11 +220,11 @@ class HRViewController: UIViewController, ChartViewDelegate {
             
             
             //Calculate HeartRate
-            // use the latest 60 data points to calculate heart rate
-            let i_startPoint = self.count - 62
+            // use the latest 120 data points to calculate heart rate
+            let i_startPoint = self.count - 122
             let redChannelSlice = Array(self.redChannel[i_startPoint...(self.count-2)])
             let timeSlice = Array(self.timeStamp[i_startPoint...(self.count - 2)])
-            let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 50, startPoint: i_startPoint)
+            let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 40, startPoint: i_startPoint)
             if heartrate != 0 {
                 self.HRLabel.text = String(heartrate)
             }
@@ -238,11 +246,11 @@ extension HRViewController: CaptureManagerDelegate {
             sampleTimeCopy = sampleTime
             if imageCopy != nil {
                 DispatchQueue.global(qos: .userInteractive).async {
-                    let sum = (self.getRedSum(image: self.imageCopy!)) * (-1)
+                    let sum = (self.getRedSum(image: self.imageCopy!))
                     self.redChannel.append(sum)
                     self.timeStamp.append(self.sampleTimeCopy)
                     if self.count > 30 {
-                        let dataPoint = ChartDataEntry(x: self.sampleTimeCopy, y: Double(sum / 100))
+                        let dataPoint = ChartDataEntry(x: self.sampleTimeCopy, y: Double((sum * -1) / 100))
                         self.lineDataEntry.append(dataPoint)
                     }
                     // Here decides how many datapoints are showed in the chart
@@ -281,7 +289,7 @@ extension HRViewController: CaptureManagerDelegate {
     
     func calculateHR(HR: [Int], time: [Double], THRESHOLD: Int, HIGHFILTER: Double, LOWFILTER: Double, startPoint: Int) -> Int {
         var heartRate  = 0
-        let hr = self.ThresholdingAlgo(y: HR.map { Double($0) }, lag: 10, threshold: 5.5, influence: 0.3).0
+        let hr = self.ThresholdingAlgo(y: HR.map { Double($0) }, lag: 30, threshold: 1.8, influence: 1).0
         
         //Use the result to get heartbeat timestamp
         let queue = Queue<Double>()
@@ -299,20 +307,6 @@ extension HRViewController: CaptureManagerDelegate {
                }
            }
        }
-//        for i in 5 ..< HR.count - 3 {
-//            if ((HR[i] - HR[i - 3]) > THRESHOLD && HR[i] - HR[i + 3] > THRESHOLD) {
-//                queue.enqueue(time[i])
-//            }
-//            if queue.count >= 2 {
-//                let firstBeat = queue.dequeue()!
-//                let secondBeat = queue.tail!
-//                let oneBeatTime = secondBeat - firstBeat
-//                let HR = 60 / oneBeatTime
-//                if HR < HIGHFILTER && HR > LOWFILTER {
-//                    heartRate = Int(HR)
-//                }
-//            }
-//        }
         return heartRate
     }
     
@@ -406,6 +400,7 @@ extension HRViewController: CaptureManagerDelegate {
         return red
     }
     
+    // Func to toggle flashlight
     func toggleFlash() {
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
         guard device.hasTorch else { return }
@@ -497,12 +492,3 @@ extension UIColor {
     }
 }
 
-extension HRViewController: PassDataDelegate {
-    func getName(name: String) {
-        self.name = name
-    }
-    
-    func getAge(age: Int) {
-        self.age = age
-    }
-}

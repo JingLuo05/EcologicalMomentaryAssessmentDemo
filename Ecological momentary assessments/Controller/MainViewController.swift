@@ -9,19 +9,12 @@
 import UIKit
 import HealthKit
 
-protocol PassDataDelegate {
-    func getName(name: String)
-    func getAge(age: Int)
-}
-
-
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     let healthStore = HealthStore()
     
     var name = String()
     var age = Int()
-    var passDataDelegate: PassDataDelegate?
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var ageTextField: UITextField!
@@ -31,44 +24,31 @@ class MainViewController: UIViewController {
         print("User name begin")
     }
     
-    
     @IBAction func userNameEnd(_ sender: UITextField) {
         self.name = String(nameTextField.text ?? "404")
         nameTextField.endEditing(true)
-        print("User name: \(self.name)")
         
-        let tabbar = tabBarController as! TabBarController
-        tabbar.ptpName = self.name
-        
-        //self.passDataDelegate!.getName(name: self.name)
+        //set default name
+        let defauls = UserDefaults.standard
+        defauls.set(self.name, forKey: UserDefault.id)
     }
     
-    @IBAction func ageBegin(_ sender: UITextField) {
-        ageTextField.keyboardType = UIKeyboardType.numberPad
+    @IBAction func ageEditingBegin(_ sender: UITextField) {
+        print("age editing begins")
+        //ageTextField.keyboardType = UIKeyboardType.numberPad
     }
+    
     
     
     @IBAction func ageEnd(_ sender: UITextField) {
         self.age = Int(ageTextField.text!) ?? 0
         ageTextField.endEditing(true)
-        print("User age: \(self.age)")
-        passDataDelegate!.getAge(age: self.age)
+        print("age editing ends")
+        
+        //set default age
+        let defauls = UserDefaults.standard
+        defauls.set(self.age, forKey: UserDefault.age)
     }
-    
-//    @IBAction func userNameEntered(_ sender: UITextField) {
-//        self.name = nameTextField.text!
-//        nameTextField.endEditing(true)
-//        print("User name: \(self.name)")
-//        passDataDelegate.getName(name: self.name)
-//    }
-//
-//    @IBAction func userAgeEntered(_ sender: UITextField) {
-//
-//        self.age = Int(ageTextField.text!) ?? 0
-//        ageTextField.endEditing(true)
-//        print("User age: \(self.age)")
-//        passDataDelegate.getAge(age: self.age)
-//    }
     
 
     override func viewDidLoad() {
@@ -76,10 +56,26 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = #colorLiteral(red: 0.2243741453, green: 0.2615192533, blue: 0.4102925658, alpha: 1)
         self.hideKeyboardWhenTappedAround()
         
-        let tabbar = tabBarController as! TabBarController
-        nameTextField.text = tabbar.ptpName
+        //set delegate
+        nameTextField.delegate = self
+        ageTextField.delegate = self
+        
+        //get user id and age
+        let defaults = UserDefaults.standard
+        if let userID = defaults.string(forKey: UserDefault.id) {
+            print("user ID: \(userID)") // Some String Value
+            nameTextField.text = userID
+        }
+        if let userAge = defaults.string(forKey: UserDefault.age) {
+            ageTextField.text = userAge
+        }
         
         healthStore.authorizeHealthKit()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
 }
