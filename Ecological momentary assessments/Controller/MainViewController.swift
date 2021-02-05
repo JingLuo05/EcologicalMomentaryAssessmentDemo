@@ -11,8 +11,6 @@ import HealthKit
 
 class MainViewController: UIViewController, UITextFieldDelegate {
     
-    let healthStore = HealthStore()
-    
     var name = String()
     var age = Int()
     
@@ -70,7 +68,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             ageTextField.text = userAge
         }
         
-        healthStore.authorizeHealthKit()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -10,9 +10,7 @@
 		922AE54B07855DFE6DE3681D /* Pods_Ecological_momentary_assessments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0372C38A898BDFCB7F9B9EC /* Pods_Ecological_momentary_assessments.framework */; };
 		B40A635924635C100047E819 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635824635C100047E819 /* Data.swift */; };
 		B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */; };
-		B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422EBD424773439009E54D6 /* HRDetectViewController.swift */; };
 		B422EBD92477787A009E54D6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B422EBD82477787A009E54D6 /* HealthKit.framework */; };
-		B42B678C24781F09009E1CA6 /* HeartRateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */; };
 		B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34152464585A008CA55A /* LvlQuestionViewController.swift */; };
 		B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C341724645D19008CA55A /* TestStartViewController.swift */; };
 		B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C34192464749B008CA55A /* ChoiceDataBrain.swift */; };
@@ -35,10 +33,8 @@
 		94FF1143BF06ADCBC23E53C4 /* Pods-Ecological momentary assessments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ecological momentary assessments.debug.xcconfig"; path = "Target Support Files/Pods-Ecological momentary assessments/Pods-Ecological momentary assessments.debug.xcconfig"; sourceTree = "<group>"; };
 		B40A635824635C100047E819 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDataBrain.swift; sourceTree = "<group>"; };
-		B422EBD424773439009E54D6 /* HRDetectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRDetectViewController.swift; sourceTree = "<group>"; };
 		B422EBD62477787A009E54D6 /* EMARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EMARelease.entitlements; sourceTree = "<group>"; };
 		B422EBD82477787A009E54D6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateBrain.swift; sourceTree = "<group>"; };
 		B42C34152464585A008CA55A /* LvlQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LvlQuestionViewController.swift; sourceTree = "<group>"; };
 		B42C341724645D19008CA55A /* TestStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStartViewController.swift; sourceTree = "<group>"; };
 		B42C34192464749B008CA55A /* ChoiceDataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceDataBrain.swift; sourceTree = "<group>"; };
@@ -133,7 +129,6 @@
 				B42C6D5E2564DE9800CDBA69 /* PostDataClass.swift */,
 				B40A635A2463A5ED0047E819 /* LevelDataBrain.swift */,
 				B42C34192464749B008CA55A /* ChoiceDataBrain.swift */,
-				B42B678B24781F09009E1CA6 /* HeartRateBrain.swift */,
 				B4CDA49824AE91E300CE7C2F /* CaptureManagerBrain.swift */,
 				B47A8D1924B180B7003C1028 /* Queue.swift */,
 				B47A8D1B24B18386003C1028 /* HRUILabel.swift */,
@@ -158,7 +153,6 @@
 				B42C341724645D19008CA55A /* TestStartViewController.swift */,
 				B42C34152464585A008CA55A /* LvlQuestionViewController.swift */,
 				B42C341B24649B13008CA55A /* ChoiceQuestionViewController.swift */,
-				B422EBD424773439009E54D6 /* HRDetectViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -281,7 +275,6 @@
 				B4C70CC0246054170086AD1D /* MainViewController.swift in Sources */,
 				B47A8D1C24B18386003C1028 /* HRUILabel.swift in Sources */,
 				B47A8D1A24B180B7003C1028 /* Queue.swift in Sources */,
-				B422EBD524773439009E54D6 /* HRDetectViewController.swift in Sources */,
 				B42C6D5F2564DE9800CDBA69 /* PostDataClass.swift in Sources */,
 				B42C341A2464749B008CA55A /* ChoiceDataBrain.swift in Sources */,
 				B42C341824645D19008CA55A /* TestStartViewController.swift in Sources */,
@@ -289,7 +282,6 @@
 				B40A635B2463A5ED0047E819 /* LevelDataBrain.swift in Sources */,
 				B42C34162464585A008CA55A /* LvlQuestionViewController.swift in Sources */,
 				B4C70CBC246054170086AD1D /* AppDelegate.swift in Sources */,
-				B42B678C24781F09009E1CA6 /* HeartRateBrain.swift in Sources */,
 				B4CDA49924AE91E300CE7C2F /* CaptureManagerBrain.swift in Sources */,
 				B466182D25C1DF82004729E5 /* UserDefault.swift in Sources */,
 				B4C70CBE246054170086AD1D /* SceneDelegate.swift in Sources */,

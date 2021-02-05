@@ -186,6 +186,10 @@ class HRViewController: UIViewController, ChartViewDelegate {
             count = 0
             redChannel = []
             timeStamp = []
+            redChannel_cut = []
+            timeStamp_cut = []
+            heartbeatTimeStamp = []
+            self.chartView.clearValues()
             
         }
     }
@@ -220,8 +224,8 @@ class HRViewController: UIViewController, ChartViewDelegate {
             
             
             //Calculate HeartRate
-            // use the latest 120 data points to calculate heart rate
-            let i_startPoint = self.count - 122
+            // use the latest 60 data points to calculate heart rate
+            let i_startPoint = self.count - 62
             let redChannelSlice = Array(self.redChannel[i_startPoint...(self.count-2)])
             let timeSlice = Array(self.timeStamp[i_startPoint...(self.count - 2)])
             let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 40, startPoint: i_startPoint)

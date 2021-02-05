@@ -29,10 +29,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Use camera to get heart rate data</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Access to heart rate data</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Access to heart rate data</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
