@@ -35,7 +35,6 @@ class HRViewController: UIViewController, ChartViewDelegate {
     var timeStamp: [Double] = []                    //time stamp for every sample
     var redChannel_cut: [Int] = []                      //sample result: Currenly just sum RBG red value of partial pixels
     var timeStamp_cut: [Double] = []                    //time stamp for every sample
-    var heartbeatTimeStamp: [Double] = []           //store every heartbeat time
     var name: String = ""                          //user name from first storyboard
     var age = 0                                    //user age from first storyboard
     //var postData: Post                              //data set sent to backend
@@ -127,14 +126,6 @@ class HRViewController: UIViewController, ChartViewDelegate {
             print(redChannel)
             print(timeStamp)
             
-            //Ask user whether to store this data ??
-            //-------A question-------------
-            //Do we ask participants whether to save this data?
-            
-            //var postData: Post
-            //postData = Post(hr: redChannel, timestamp: timeStamp)
-            
-            
             // Send data to backend
             //get user id and age
             let defaults = UserDefaults.standard
@@ -188,7 +179,6 @@ class HRViewController: UIViewController, ChartViewDelegate {
             timeStamp = []
             redChannel_cut = []
             timeStamp_cut = []
-            heartbeatTimeStamp = []
             self.chartView.clearValues()
             
         }
@@ -225,13 +215,13 @@ class HRViewController: UIViewController, ChartViewDelegate {
             
             //Calculate HeartRate
             // use the latest 60 data points to calculate heart rate
-            let i_startPoint = self.count - 62
-            let redChannelSlice = Array(self.redChannel[i_startPoint...(self.count-2)])
-            let timeSlice = Array(self.timeStamp[i_startPoint...(self.count - 2)])
-            let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 40, startPoint: i_startPoint)
-            if heartrate != 0 {
-                self.HRLabel.text = String(heartrate)
-            }
+//            let i_startPoint = self.count - 122
+//            let redChannelSlice = Array(self.redChannel[i_startPoint...(self.count-2)])
+//            let timeSlice = Array(self.timeStamp[i_startPoint...(self.count - 2)])
+//            let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 40, startPoint: i_startPoint)
+//            if heartrate != 0 {
+//                self.HRLabel.text = String(heartrate)
+//            }
             
         }
     }
@@ -293,8 +283,41 @@ extension HRViewController: CaptureManagerDelegate {
     
     func calculateHR(HR: [Int], time: [Double], THRESHOLD: Int, HIGHFILTER: Double, LOWFILTER: Double, startPoint: Int) -> Int {
         var heartRate  = 0
-        let hr = self.ThresholdingAlgo(y: HR.map { Double($0) }, lag: 30, threshold: 1.8, influence: 1).0
+//        var i = 3
+//        print("HR slice: \(HR)")
+//        print("time slice: \(time)")
+//        let max = HR.max()
+//        let min = HR.min()
+//        print("max = \(max ?? 0), min = \(min ?? 0)")
+//
+//        while i < 117  {
+//            if (HR[i] < HR[i-1]) && (HR[i] < HR[i-2]) && (HR[i] < HR[i-3]) && (HR[i] <= HR[i+1]) && (HR[i] <= HR[i+2]) && (HR[i] <= HR[i+3])
+//            {
+//                print("i: \(i)")
+//                if isSpike(x: HR[i], max: max!, min: min!) {
+//                    count = count + 1;
+//                    print("HR[i]: \(HR[i])")
+//                    print("i: \(i)")
+//                    heartbeatValue.append(HR[i])
+//                    heartbeatTimeStamp.append(time[i])
+//                    i = i + 4
+//                } else
+//                {
+//                    i = i + 1;
+//                    print("i: \(i)")
+//                }
+//            }
+//            else
+//            {
+//                i = i + 1;
+//                print("i: \(i)")
+//            }
+//        }
+//        print("heart beat value: \(heartbeatValue)")
+//        print("heart bear time: \(heartbeatTimeStamp)")
         
+            let hr = self.ThresholdingAlgo(y: HR.map { Double($0) }, lag: 30, threshold: 1.8, influence: 1).0
+
         //Use the result to get heartbeat timestamp
         let queue = Queue<Double>()
         for i in 0 ..< hr.count {
@@ -311,7 +334,16 @@ extension HRViewController: CaptureManagerDelegate {
                }
            }
        }
+        
+        
+        
         return heartRate
+    }
+    
+    func isSpike(x: Int, max: Int, min: Int) -> Bool {
+        print("thr:\((max+min)/2)")
+        if x > (max+min)/2 {return false}
+        else {return true}
     }
     
     // Function to calculate the arithmetic mean
