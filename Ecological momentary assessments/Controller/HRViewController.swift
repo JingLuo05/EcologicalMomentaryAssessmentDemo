@@ -17,7 +17,6 @@ class HRViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var ImageV: UIImageView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var startButton: UIButton!
-    @IBOutlet weak var HRLabel: UILabel!
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var HRView: UIView!
     
@@ -137,38 +136,43 @@ class HRViewController: UIViewController, ChartViewDelegate {
                 self.age = Int(userAge) ?? 0
             }
             
-            // prepare json data
-            redChannel_cut = Array(redChannel[120..<redChannel.count])
-            timeStamp_cut = Array(timeStamp[120..<timeStamp.count])
-            
-            let json: [String: Any] = ["hr": redChannel_cut, "time": timeStamp_cut, "PTP": name, "age": self.age]
+            // Send data to backend
+            let n = redChannel.count
+            // Only send data to backend when the recodring time is longer than 30 seconds
+            if n > 1800 {
+                // prepare json data
+                // Delete first 5 seconds data
+                redChannel_cut = Array(redChannel[300..<redChannel.count])
+                timeStamp_cut = Array(timeStamp[300..<timeStamp.count])
+                
+                let json: [String: Any] = ["hr": redChannel_cut, "time": timeStamp_cut, "PTP": name, "age": self.age]
 
-            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
-            // create post request
-            let url = URL(string: httpURL)!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
+                // create post request
+                let url = URL(string: httpURL)!
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
 
-            // insert json data to the request
-            request.httpBody = jsonData
+                // insert json data to the request
+                request.httpBody = jsonData
 
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {
-                    print(error?.localizedDescription ?? "No data")
-                    return
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    guard let data = data, error == nil else {
+                        print(error?.localizedDescription ?? "No data")
+                        return
+                    }
+                    let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                    if let responseJSON = responseJSON as? [String: Any] {
+                        print(responseJSON)
+                    }
                 }
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let responseJSON = responseJSON as? [String: Any] {
-                    print(responseJSON)
-                }
+                task.resume()
             }
-
-            task.resume()
+            
             print("name:")
             print(name)
             print(age)
-            
             
             //clear chartData from last session
             lineDataEntry = []
@@ -334,8 +338,6 @@ extension HRViewController: CaptureManagerDelegate {
                }
            }
        }
-        
-        
         
         return heartRate
     }
