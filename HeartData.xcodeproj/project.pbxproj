@@ -160,9 +160,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B4C70CB7246054170086AD1D /* Ecological momentary assessments */ = {
+		B4C70CB7246054170086AD1D /* HeartData */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B4C70CCC246054200086AD1D /* Build configuration list for PBXNativeTarget "Ecological momentary assessments" */;
+			buildConfigurationList = B4C70CCC246054200086AD1D /* Build configuration list for PBXNativeTarget "HeartData" */;
 			buildPhases = (
 				D8AF266A693C3300546B3919 /* [CP] Check Pods Manifest.lock */,
 				B4C70CB4246054170086AD1D /* Sources */,
@@ -174,7 +174,7 @@
 			);
 			dependencies = (
 			);
-			name = "Ecological momentary assessments";
+			name = HeartData;
 			productName = "Ecological momentary assessments";
 			productReference = B4C70CB8246054170086AD1D /* EMA.app */;
 			productType = "com.apple.product-type.application";
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B4C70CB3246054170086AD1D /* Build configuration list for PBXProject "Ecological momentary assessments" */;
+			buildConfigurationList = B4C70CB3246054170086AD1D /* Build configuration list for PBXProject "HeartData" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -207,7 +207,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B4C70CB7246054170086AD1D /* Ecological momentary assessments */,
+				B4C70CB7246054170086AD1D /* HeartData */,
 			);
 		};
 /* End PBXProject section */
@@ -442,7 +442,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.JingLuo.Ecological-momentary-assessments";
+				PRODUCT_BUNDLE_IDENTIFIER = com.JingLuo.HeartData;
 				PRODUCT_NAME = EMA;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -463,7 +463,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.JingLuo.Ecological-momentary-assessments";
+				PRODUCT_BUNDLE_IDENTIFIER = com.JingLuo.HeartData;
 				PRODUCT_NAME = EMA;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -473,7 +473,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B4C70CB3246054170086AD1D /* Build configuration list for PBXProject "Ecological momentary assessments" */ = {
+		B4C70CB3246054170086AD1D /* Build configuration list for PBXProject "HeartData" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B4C70CCA246054200086AD1D /* Debug */,
@@ -482,7 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B4C70CCC246054200086AD1D /* Build configuration list for PBXNativeTarget "Ecological momentary assessments" */ = {
+		B4C70CCC246054200086AD1D /* Build configuration list for PBXNativeTarget "HeartData" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B4C70CCD246054200086AD1D /* Debug */,
