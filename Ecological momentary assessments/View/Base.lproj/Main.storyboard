@@ -94,9 +94,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLs-lS-2hW" userLabel="HRView">
                                 <rect key="frame" x="10" y="653" width="394" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep wrist and finger still." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vM-P0-bHi">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep wrist and finger still." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7vM-P0-bHi" userLabel="Lower label">
                                         <rect key="frame" x="20" y="8" width="354" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -131,6 +131,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="HeartRate" image="heart.fill" catalog="system" id="8U7-YF-o3I"/>
                     <connections>
+                        <outlet property="HRLabel" destination="7vM-P0-bHi" id="Yrv-vU-ejO"/>
                         <outlet property="HRView" destination="tLs-lS-2hW" id="e01-zi-Ek1"/>
                         <outlet property="ImageV" destination="fWC-sj-DBn" id="PKd-df-viJ"/>
                         <outlet property="chartView" destination="JBl-o3-FMW" id="MxT-Ud-DbH"/>

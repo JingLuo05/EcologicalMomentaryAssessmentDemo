@@ -19,6 +19,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var HRView: UIView!
+    @IBOutlet weak var HRLabel: UILabel!
     
     
     
@@ -34,6 +35,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
     var timeStamp: [Double] = []                    //time stamp for every sample
     var redChannel_cut: [Int] = []                      //sample result: Currenly just sum RBG red value of partial pixels
     var timeStamp_cut: [Double] = []                    //time stamp for every sample
+    var hr = 0
     var name: String = ""                          //user name from first storyboard
     var age = 0                                    //user age from first storyboard
     //var postData: Post                              //data set sent to backend
@@ -53,6 +55,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
         isStarted = false
         
         // Set the UI
+        HRLabel.text = "Please measure for at least 12s."
         startButton.setTitle("Start", for: .normal)
         startButton.layer.cornerRadius = 10
         
@@ -89,7 +92,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
         chartView.delegate = self
         //chartView.backgroundColor = UIColor.white
         chartView.noDataTextColor = UIColor.white
-        chartView.noDataText = "No heart rate data yet."
+        chartView.noDataText = "No heart rate data shown yet."
         chartView.highlightPerTapEnabled = true
         
         CaptureManager.shared.startSession()
@@ -107,6 +110,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
             startTime = Date().timeIntervalSince1970
             startButton.setTitle("Stop", for: .normal)
             startButton.backgroundColor = UIColor.green
+            HRLabel.text = "Keep wrist and finger still."
             
             //Update chartView every 2 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
@@ -114,7 +118,7 @@ class HRViewController: UIViewController, ChartViewDelegate {
             }
             
         }
-            
+        
         else if startButton.currentTitle == "Stop" {
             isStarted = false
             timer.invalidate()
@@ -125,49 +129,190 @@ class HRViewController: UIViewController, ChartViewDelegate {
             print(redChannel)
             print(timeStamp)
             
-            // Send data to backend
-            //get user id and age
-            let defaults = UserDefaults.standard
-            if let userID = defaults.string(forKey: UserDefault.id) {
-                print("user ID: \(userID)")
-                self.name = userID
-            }
-            if let userAge = defaults.string(forKey: UserDefault.age) {
-                self.age = Int(userAge) ?? 0
-            }
-            
-            // Send data to backend
             let n = redChannel.count
-            // Only send data to backend when the recodring time is longer than 30 seconds
-            if n > 1800 {
-                // prepare json data
+            
+            //Only calculate HR if recording time > 10s
+            if n > 660 {
+                // Send data to backend
+                // Only send data to backend when the recodring time is longer than 30 seconds
+                if n > 1800 {
+                    // Send data to backend
+                    //get user id and age
+                    let defaults = UserDefaults.standard
+                    if let userID = defaults.string(forKey: UserDefault.id) {
+                        print("user ID: \(userID)")
+                        self.name = userID
+                    }
+                    if let userAge = defaults.string(forKey: UserDefault.age) {
+                        self.age = Int(userAge) ?? 0
+                    }
+                    
+                    // prepare json data
+                    let json: [String: Any] = ["hr": redChannel_cut, "time": timeStamp_cut, "PTP": name, "age": self.age]
+                    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                    
+                    // create post request
+                    let url = URL(string: httpURL)!
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    
+                    // insert json data to the request
+                    request.httpBody = jsonData
+                    
+                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                        guard let data = data, error == nil else {
+                            print(error?.localizedDescription ?? "No data")
+                            return
+                        }
+                        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                        if let responseJSON = responseJSON as? [String: Any] {
+                            print(responseJSON)
+                        }
+                    }
+                    task.resume()
+                    
+                    //Tell user the data has been sent to the backend
+                    showMsgbox(_message: "Your data has been sent to the backend.", _title: "Thank you!")
+                }
+                
                 // Delete first 5 seconds data
                 redChannel_cut = Array(redChannel[300..<redChannel.count])
                 timeStamp_cut = Array(timeStamp[300..<timeStamp.count])
                 
-                let json: [String: Any] = ["hr": redChannel_cut, "time": timeStamp_cut, "PTP": name, "age": self.age]
+                let cut_n = redChannel_cut.count
+                //Calculate HR based on the last 6 seconds
+                let hr_cut = Array(redChannel_cut[(cut_n - 360)..<cut_n])
+                let time_cut = Array(timeStamp_cut[(cut_n - 360)..<cut_n])
+                print("HR cut: \(hr_cut)")
+                print("time cut: \(time_cut)")
 
-                let jsonData = try? JSONSerialization.data(withJSONObject: json)
-
-                // create post request
-                let url = URL(string: httpURL)!
-                var request = URLRequest(url: url)
-                request.httpMethod = "POST"
-
-                // insert json data to the request
-                request.httpBody = jsonData
-
-                let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    guard let data = data, error == nil else {
-                        print(error?.localizedDescription ?? "No data")
-                        return
+                var hr_slice = Array(hr_cut[0..<120])
+                var stamp_slice = Array(time_cut[0..<120])
+                var heartbeatValue: [Int] = []
+                var HRSpikeTimeStamp: [Double] = []
+                
+                //Calculate first 2 seconds
+                var i = 3
+                print("HR slice: \(hr_slice)")
+                print("time slice: \(stamp_slice)")
+                var max = hr_slice.max()
+                var min = hr_slice.min()
+                print("max1 = \(max ?? 0), min1 = \(min ?? 0)")
+                
+                while i < 117  {
+                    if (hr_slice[i] < hr_slice[i-1]) && (hr_slice[i] < hr_slice[i-2]) && (hr_slice[i] < hr_slice[i-3]) && (hr_slice[i] <= hr_slice[i+1]) && (hr_slice[i] <= hr_slice[i+2]) && (hr_slice[i] <= hr_slice[i+3])
+                    {
+                        print("i: \(i)")
+                        if isSpike(x: hr_slice[i], max: max!, min: min!) {
+                            print("HR[\(i)]: \(hr_slice[i])")
+                            heartbeatValue.append(hr_slice[i])
+                            HRSpikeTimeStamp.append(stamp_slice[i])
+                            i = i + 4
+                        } else
+                        {
+                            i = i + 1;
+                            print("i: \(i)")
+                        }
                     }
-                    let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                    if let responseJSON = responseJSON as? [String: Any] {
-                        print(responseJSON)
+                    else
+                    {
+                        i = i + 1;
+                        print("i: \(i)")
                     }
                 }
-                task.resume()
+                print("heart beat value1: \(heartbeatValue)")
+                print("heart beat time1: \(HRSpikeTimeStamp)")
+                
+                //Calculate second 2 seconds
+                hr_slice = Array(hr_cut[120..<240])
+                stamp_slice = Array(time_cut[120..<240])
+                
+                i = 3
+                print("HR slice: \(hr_slice)")
+                print("time slice: \(stamp_slice)")
+                max = hr_slice.max()
+                min = hr_slice.min()
+                print("max2 = \(max ?? 0), min2 = \(min ?? 0)")
+                
+                while i < 117  {
+                    if (hr_slice[i] < hr_slice[i-1]) && (hr_slice[i] < hr_slice[i-2]) && (hr_slice[i] < hr_slice[i-3]) && (hr_slice[i] <= hr_slice[i+1]) && (hr_slice[i] <= hr_slice[i+2]) && (hr_slice[i] <= hr_slice[i+3])
+                    {
+                        print("i: \(i)")
+                        if isSpike(x: hr_slice[i], max: max!, min: min!) {
+                            print("HR[\(i)]: \(hr_slice[i])")
+                            heartbeatValue.append(hr_slice[i])
+                            HRSpikeTimeStamp.append(stamp_slice[i])
+                            i = i + 4
+                        } else
+                        {
+                            i = i + 1;
+                            print("i: \(i)")
+                        }
+                    }
+                    else
+                    {
+                        i = i + 1;
+                        print("i: \(i)")
+                    }
+                }
+                print("heart beat value2: \(heartbeatValue)")
+                print("heart beat time2: \(HRSpikeTimeStamp)")
+                
+                //Calculate last 2 seconds
+                hr_slice = Array(hr_cut[240..<360])
+                stamp_slice = Array(time_cut[240..<360])
+                
+                i = 3
+                print("HR slice: \(hr_slice)")
+                print("time slice: \(stamp_slice)")
+                max = hr_slice.max()
+                min = hr_slice.min()
+                print("max2 = \(max ?? 0), min2 = \(min ?? 0)")
+                
+                while i < 117  {
+                    if (hr_slice[i] < hr_slice[i-1]) && (hr_slice[i] < hr_slice[i-2]) && (hr_slice[i] < hr_slice[i-3]) && (hr_slice[i] <= hr_slice[i+1]) && (hr_slice[i] <= hr_slice[i+2]) && (hr_slice[i] <= hr_slice[i+3])
+                    {
+                        print("i: \(i)")
+                        if isSpike(x: hr_slice[i], max: max!, min: min!) {
+                            print("HR[\(i)]: \(hr_slice[i])")
+                            heartbeatValue.append(hr_slice[i])
+                            HRSpikeTimeStamp.append(stamp_slice[i])
+                            i = i + 4
+                        } else
+                        {
+                            i = i + 1;
+                            print("i: \(i)")
+                        }
+                    }
+                    else
+                    {
+                        i = i + 1;
+                        print("i: \(i)")
+                    }
+                }
+                print("heart beat value3: \(heartbeatValue)")
+                print("heart beat time3: \(HRSpikeTimeStamp)")
+                
+                //Using HR spike time stamp from last 6 seconds to calculate HR
+                let spike_n = HRSpikeTimeStamp.count
+                if spike_n > 20 || spike_n < 4 {
+                    //if HR > 200 or HR < 40, then calculation can't be done.
+                    HRLabel.text = "Please keep finger still and try again."
+                } else {
+                    //if 40 <= HR <= 200, then calculate HR using the spike timestamp
+                    hr = calculateHR(spikes: HRSpikeTimeStamp)
+                    print("HR: \(hr)")
+                    if hr != 0 {
+                        HRLabel.text = "Estimated heart rate:  \(hr)"
+                    } else {
+                        HRLabel.text = "Please keep finger still and try again."
+                    }
+                }
+                heartbeatValue = []
+                HRSpikeTimeStamp = []
+            } else {
+                //recording is too short, remind user to recording for at least 12 seconds
+                showMsgbox(_message: "Please measure for at least 12 seconds.", _title: "Notice")
             }
             
             print("name:")
@@ -183,6 +328,8 @@ class HRViewController: UIViewController, ChartViewDelegate {
             timeStamp = []
             redChannel_cut = []
             timeStamp_cut = []
+            //hr_cut = []
+            
             self.chartView.clearValues()
             
         }
@@ -219,13 +366,13 @@ class HRViewController: UIViewController, ChartViewDelegate {
             
             //Calculate HeartRate
             // use the latest 60 data points to calculate heart rate
-//            let i_startPoint = self.count - 122
-//            let redChannelSlice = Array(self.redChannel[i_startPoint...(self.count-2)])
-//            let timeSlice = Array(self.timeStamp[i_startPoint...(self.count - 2)])
-//            let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 40, startPoint: i_startPoint)
-//            if heartrate != 0 {
-//                self.HRLabel.text = String(heartrate)
-//            }
+            //            let i_startPoint = self.count - 122
+            //            let redChannelSlice = Array(self.redChannel[i_startPoint...(self.count-2)])
+            //            let timeSlice = Array(self.timeStamp[i_startPoint...(self.count - 2)])
+            //            let heartrate = self.calculateHR(HR: redChannelSlice, time: timeSlice, THRESHOLD: 3000, HIGHFILTER: 200, LOWFILTER: 40, startPoint: i_startPoint)
+            //            if heartrate != 0 {
+            //                self.HRLabel.text = String(heartrate)
+            //            }
             
         }
     }
@@ -285,133 +432,58 @@ extension HRViewController: CaptureManagerDelegate {
         
     }
     
-    func calculateHR(HR: [Int], time: [Double], THRESHOLD: Int, HIGHFILTER: Double, LOWFILTER: Double, startPoint: Int) -> Int {
-        var heartRate  = 0
-//        var i = 3
-//        print("HR slice: \(HR)")
-//        print("time slice: \(time)")
-//        let max = HR.max()
-//        let min = HR.min()
-//        print("max = \(max ?? 0), min = \(min ?? 0)")
-//
-//        while i < 117  {
-//            if (HR[i] < HR[i-1]) && (HR[i] < HR[i-2]) && (HR[i] < HR[i-3]) && (HR[i] <= HR[i+1]) && (HR[i] <= HR[i+2]) && (HR[i] <= HR[i+3])
-//            {
-//                print("i: \(i)")
-//                if isSpike(x: HR[i], max: max!, min: min!) {
-//                    count = count + 1;
-//                    print("HR[i]: \(HR[i])")
-//                    print("i: \(i)")
-//                    heartbeatValue.append(HR[i])
-//                    heartbeatTimeStamp.append(time[i])
-//                    i = i + 4
-//                } else
-//                {
-//                    i = i + 1;
-//                    print("i: \(i)")
-//                }
-//            }
-//            else
-//            {
-//                i = i + 1;
-//                print("i: \(i)")
-//            }
-//        }
-//        print("heart beat value: \(heartbeatValue)")
-//        print("heart bear time: \(heartbeatTimeStamp)")
-        
-            let hr = self.ThresholdingAlgo(y: HR.map { Double($0) }, lag: 30, threshold: 1.8, influence: 1).0
+    func calculateHR(spikes: [Double]) -> Int {
+        //spikes.count >= 4 && spikes.count <= 20
+        var HR: Int = 0
+        var HRs: [Double] = []
+        var HR_i: Double = 0
+        var total: Double = 0
+        //var HR_temp:
+        let n = spikes.count
+        var i = 1
+        while i < n {
+            HR_i = 60/(spikes[i] - spikes[i-1])
+            if HR_i > 40 && HR_i < 200 {
+                HRs.append(HR_i)
+                total = total + HR_i
+                print("HR_i: \(HR_i)")
+                print("HRs \(i): \(HRs),  Total: \(total)")
+                
+                let n_hr = HRs.count
+                print("HRs.count: \(n_hr)")
+                if n_hr > 1 {
+                    if HR_i > (1.3*HRs[(n_hr-1)]) || HR_i < (0.7*HRs[(n_hr-1)]) {
+                        HRs.removeLast()
+                        total = total - HR_i
+                        print("HR_i: \(HR_i)")
+                        print("HRs \(i): \(HRs),  Total: \(total)")
+                    }
+                }
+            }
 
-        //Use the result to get heartbeat timestamp
-        let queue = Queue<Double>()
-        for i in 0 ..< hr.count {
-            if (hr[i] == 1) {
-               queue.enqueue(time[i])
-           }
-           if queue.count >= 2 {
-               let firstBeat = queue.dequeue()!
-               let secondBeat = queue.tail!
-               let oneBeatTime = secondBeat - firstBeat
-               let res = 60 / oneBeatTime
-               if res < HIGHFILTER && res > LOWFILTER {
-                   heartRate = Int(res)
-               }
-           }
-       }
-        
-        return heartRate
+            i += 1
+        }
+        print("HRs: \(HRs)")
+        if HRs.count != 0 {
+            print("Total: \(total)")
+            HR = Int(total/Double(HRs.count))
+        }
+        print("return HR: \(HR)")
+        return HR
     }
-    
+
     func isSpike(x: Int, max: Int, min: Int) -> Bool {
         print("thr:\((max+min)/2)")
         if x > (max+min)/2 {return false}
         else {return true}
     }
     
-    // Function to calculate the arithmetic mean
-    func arithmeticMean(array: [Double]) -> Double {
-        var total: Double = 0
-        for number in array {
-            total += number
-        }
-        return total / Double(array.count)
-    }
-
-    // Function to calculate the standard deviation
-    func standardDeviation(array: [Double]) -> Double
-    {
-        let length = Double(array.count)
-        let avg = array.reduce(0, {$0 + $1}) / length
-        let sumOfSquaredAvgDiff = array.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
-        return sqrt(sumOfSquaredAvgDiff / length)
-    }
-
-    // Function to extract some range from an array
-    func subArray<T>(array: [T], s: Int, e: Int) -> [T] {
-        if e > array.count {
-            return []
-        }
-        return Array(array[s..<min(e, array.count)])
-    }
-
-    // Smooth z-score thresholding filter
-    func ThresholdingAlgo(y: [Double],lag: Int,threshold: Double,influence: Double) -> ([Int],[Double],[Double]) {
-
-        // Create arrays
-        var signals   = Array(repeating: 0, count: y.count)
-        var filteredY = Array(repeating: 0.0, count: y.count)
-        var avgFilter = Array(repeating: 0.0, count: y.count)
-        var stdFilter = Array(repeating: 0.0, count: y.count)
-
-        // Initialise variables
-        for i in 0...lag-1 {
-            signals[i] = 0
-            filteredY[i] = y[i]
-        }
-
-        // Start filter
-        avgFilter[lag-1] = arithmeticMean(array: subArray(array: y, s: 0, e: lag-1))
-        stdFilter[lag-1] = standardDeviation(array: subArray(array: y, s: 0, e: lag-1))
-
-        for i in lag...y.count-1 {
-            if abs(y[i] - avgFilter[i-1]) > threshold*stdFilter[i-1] {
-                if y[i] > avgFilter[i-1] {
-                    signals[i] = 1      // Positive signal
-                } else {
-                    // Negative signals are turned off for this application
-                    //signals[i] = -1       // Negative signal
-                }
-                filteredY[i] = influence*y[i] + (1-influence)*filteredY[i-1]
-            } else {
-                signals[i] = 0          // No signal
-                filteredY[i] = y[i]
-            }
-            // Adjust the filters
-            avgFilter[i] = arithmeticMean(array: subArray(array: filteredY, s: i-lag, e: i))
-            stdFilter[i] = standardDeviation(array: subArray(array: filteredY, s: i-lag, e: i))
-        }
-
-        return (signals,avgFilter,stdFilter)
+    func showMsgbox(_message: String, _title: String){
+        
+        let alert = UIAlertController(title: _title, message: _message, preferredStyle: UIAlertController.Style.alert)
+        let btnOK = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(btnOK)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func getRedSum(image: UIImage) -> Int {
@@ -462,30 +534,6 @@ extension HRViewController: CaptureManagerDelegate {
         }
     }
     
-    //    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (h:CGFloat, s:CGFloat, b:CGFloat) {
-    //        let minV:CGFloat = CGFloat(min(r, g, b))
-    //        let maxV:CGFloat = CGFloat(max(r, g, b))
-    //        let delta:CGFloat = maxV - minV
-    //        var hue:CGFloat = 0
-    //        if delta != 0 {
-    //            if r == maxV {
-    //                hue = (g - b) / delta
-    //            }
-    //            else if g == maxV {
-    //                hue = 2 + (b - r) / delta
-    //            }
-    //            else {
-    //                hue = 4 + (r - g) / delta
-    //            }
-    //            hue *= 60
-    //            if hue < 0 {
-    //                hue += 360
-    //            }
-    //        }
-    //        let saturation = maxV == 0 ? 0 : (delta / maxV)
-    //        let brightness = maxV
-    //        return (h:hue/360, s:saturation, b:brightness)
-    //    }
 }
 
 //MARK: - Functions related to image processing
@@ -530,3 +578,151 @@ extension UIColor {
     }
 }
 
+//    func calculateHR(HR: [Int], time: [Double], THRESHOLD: Int, HIGHFILTER: Double, LOWFILTER: Double, startPoint: Int) -> Int {
+//        var heartRate  = 0
+//        //        var i = 3
+//        //        print("HR slice: \(HR)")
+//        //        print("time slice: \(time)")
+//        //        let max = HR.max()
+//        //        let min = HR.min()
+//        //        print("max = \(max ?? 0), min = \(min ?? 0)")
+//        //
+//        //        while i < 117  {
+//        //            if (HR[i] < HR[i-1]) && (HR[i] < HR[i-2]) && (HR[i] < HR[i-3]) && (HR[i] <= HR[i+1]) && (HR[i] <= HR[i+2]) && (HR[i] <= HR[i+3])
+//        //            {
+//        //                print("i: \(i)")
+//        //                if isSpike(x: HR[i], max: max!, min: min!) {
+//        //                    count = count + 1;
+//        //                    print("HR[i]: \(HR[i])")
+//        //                    print("i: \(i)")
+//        //                    heartbeatValue.append(HR[i])
+//        //                    heartbeatTimeStamp.append(time[i])
+//        //                    i = i + 4
+//        //                } else
+//        //                {
+//        //                    i = i + 1;
+//        //                    print("i: \(i)")
+//        //                }
+//        //            }
+//        //            else
+//        //            {
+//        //                i = i + 1;
+//        //                print("i: \(i)")
+//        //            }
+//        //        }
+//        //        print("heart beat value: \(heartbeatValue)")
+//        //        print("heart bear time: \(heartbeatTimeStamp)")
+//
+//        let hr = self.ThresholdingAlgo(y: HR.map { Double($0) }, lag: 30, threshold: 1.8, influence: 1).0
+//
+//        //Use the result to get heartbeat timestamp
+//        let queue = Queue<Double>()
+//        for i in 0 ..< hr.count {
+//            if (hr[i] == 1) {
+//                queue.enqueue(time[i])
+//            }
+//            if queue.count >= 2 {
+//                let firstBeat = queue.dequeue()!
+//                let secondBeat = queue.tail!
+//                let oneBeatTime = secondBeat - firstBeat
+//                let res = 60 / oneBeatTime
+//                if res < HIGHFILTER && res > LOWFILTER {
+//                    heartRate = Int(res)
+//                }
+//            }
+//        }
+//
+//        return heartRate
+//    }
+
+
+//    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (h:CGFloat, s:CGFloat, b:CGFloat) {
+//        let minV:CGFloat = CGFloat(min(r, g, b))
+//        let maxV:CGFloat = CGFloat(max(r, g, b))
+//        let delta:CGFloat = maxV - minV
+//        var hue:CGFloat = 0
+//        if delta != 0 {
+//            if r == maxV {
+//                hue = (g - b) / delta
+//            }
+//            else if g == maxV {
+//                hue = 2 + (b - r) / delta
+//            }
+//            else {
+//                hue = 4 + (r - g) / delta
+//            }
+//            hue *= 60
+//            if hue < 0 {
+//                hue += 360
+//            }
+//        }
+//        let saturation = maxV == 0 ? 0 : (delta / maxV)
+//        let brightness = maxV
+//        return (h:hue/360, s:saturation, b:brightness)
+//    }
+
+//// Function to calculate the arithmetic mean
+//func arithmeticMean(array: [Double]) -> Double {
+//    var total: Double = 0
+//    for number in array {
+//        total += number
+//    }
+//    return total / Double(array.count)
+//}
+//
+//// Function to calculate the standard deviation
+//func standardDeviation(array: [Double]) -> Double
+//{
+//    let length = Double(array.count)
+//    let avg = array.reduce(0, {$0 + $1}) / length
+//    let sumOfSquaredAvgDiff = array.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+//    return sqrt(sumOfSquaredAvgDiff / length)
+//}
+//
+//// Function to extract some range from an array
+//func subArray<T>(array: [T], s: Int, e: Int) -> [T] {
+//    if e > array.count {
+//        return []
+//    }
+//    return Array(array[s..<min(e, array.count)])
+//}
+//
+//// Smooth z-score thresholding filter
+//func ThresholdingAlgo(y: [Double],lag: Int,threshold: Double,influence: Double) -> ([Int],[Double],[Double]) {
+//
+//    // Create arrays
+//    var signals   = Array(repeating: 0, count: y.count)
+//    var filteredY = Array(repeating: 0.0, count: y.count)
+//    var avgFilter = Array(repeating: 0.0, count: y.count)
+//    var stdFilter = Array(repeating: 0.0, count: y.count)
+//
+//    // Initialise variables
+//    for i in 0...lag-1 {
+//        signals[i] = 0
+//        filteredY[i] = y[i]
+//    }
+//
+//    // Start filter
+//    avgFilter[lag-1] = arithmeticMean(array: subArray(array: y, s: 0, e: lag-1))
+//    stdFilter[lag-1] = standardDeviation(array: subArray(array: y, s: 0, e: lag-1))
+//
+//    for i in lag...y.count-1 {
+//        if abs(y[i] - avgFilter[i-1]) > threshold*stdFilter[i-1] {
+//            if y[i] > avgFilter[i-1] {
+//                signals[i] = 1      // Positive signal
+//            } else {
+//                // Negative signals are turned off for this application
+//                //signals[i] = -1       // Negative signal
+//            }
+//            filteredY[i] = influence*y[i] + (1-influence)*filteredY[i-1]
+//        } else {
+//            signals[i] = 0          // No signal
+//            filteredY[i] = y[i]
+//        }
+//        // Adjust the filters
+//        avgFilter[i] = arithmeticMean(array: subArray(array: filteredY, s: i-lag, e: i))
+//        stdFilter[i] = standardDeviation(array: subArray(array: filteredY, s: i-lag, e: i))
+//    }
+//
+//    return (signals,avgFilter,stdFilter)
+//}
