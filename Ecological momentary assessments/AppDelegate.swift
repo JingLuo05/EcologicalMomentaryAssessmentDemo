@@ -11,13 +11,25 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var hasAlreadyConsented :Bool!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //retrieve value from local store, if value doesn't exist then false is returned
+                hasAlreadyConsented = UserDefaults.standard.bool(forKey: "hasAlreadyConsented")
+                
         return true
     }
 
+    func sethasAlreadyConsented() {
+        hasAlreadyConsented = true
+        print(hasAlreadyConsented ?? false)
+    }
+    
+    func setNotConsented() {
+        UserDefaults.standard.set(false, forKey: "hasAlreadyConsented")
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
