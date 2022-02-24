@@ -26,14 +26,7 @@
 ## Todo
 
 * Record the video
-* Store the video to cloud
-* Read references and process sample images
-  * How to process sample images?
-  * Detect spikes to calculate HR and HRV
-* Build back-end platform to store data
-* User info input
 * Improve User Interface
-  * Images need to be replaced
   * Add Back button
   * Label layout
   
@@ -42,3 +35,5 @@
 
 * Update real-time waveform
 * Higher temporal resulotion(30 Hz to 60 Hz)
+* Build back-end platform to store data
+* User info input
