@@ -1,6 +1,10 @@
-# Ecological Momentary Assessment Demo
+# HeartData
+
 [Requirements](#Requirements) | [Current State](#CurrentState) | [To do](#Todo) | [Finished](#Finished)
 
+<p align="center">
+  <img src="resources/AppIcon.png" height="30%" width="30%"/>
+</p>
 
 ## Requirements
 
